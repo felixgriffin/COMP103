@@ -22,11 +22,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="COMP103" />
+        <module name="0016" />
+        <module name="2047" />
+        <module name="Spiral" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="0016" target="1.8" />
+      <module name="2047" target="1.8" />
+      <module name="Assignment 1" target="1.8" />
       <module name="COMP103" target="1.8" />
+      <module name="Spiral" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

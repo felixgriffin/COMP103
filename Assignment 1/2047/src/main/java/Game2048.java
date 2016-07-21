@@ -8,8 +8,13 @@
  * ID:
  */
 
-import ecs100.*;
-import java.util.*;
+import ecs100.UI;
+
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game2048 {
 
@@ -19,6 +24,13 @@ public class Game2048 {
     private boolean hasMessageDisplayed = false;
 
     public Game2048 () {
+        //Consuming the event stops the window from moving when you press keys
+        ((JComponent)UI.theUI.canvas).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                e.consume();
+            }
+        });
         UI.addButton("Instructions", this::printInstructions);
         UI.addButton("Restart", this::startGame);
         UI.addButton("Quit", UI::quit);

@@ -11,6 +11,7 @@
 import ecs100.*;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 class Board16 {
 
@@ -47,15 +48,12 @@ class Board16 {
      */
 
     boolean isGameOver() {
-        if (hasReachedTarget()) {
-            return true;
-        }
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < board.length-1; i++) {
             if (board[i] == board[i + 1] || board[i] == 0) {
                 return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -81,7 +79,8 @@ class Board16 {
      */
     void insertRandomTile() {
         int x = 0;
-        int[] temp = new int[]{};
+        int[] temp = new int[numEmptyTiles()];
+        if (temp.length == 0) return;
         for (int i = 0; i < board.length; i++) {
             if (board[i] == 0) {
                 temp[x] = i;
@@ -119,10 +118,11 @@ class Board16 {
      * [COMPLETION]
      */
     void left() {
-        int[] temp = new int[]{};
+        int x=0;
+        int[] temp = new int[board.length];
         for (int i = 0; i < board.length; i++) {
             if (board[i] > 0) {
-                temp[temp.length - 1] = board[i];
+                temp[x++] = board[i];
                 board[i] = 0;
             }
         }
@@ -133,7 +133,6 @@ class Board16 {
                 board[i + 1] = 0;
             }
         }
-        insertRandomTile();
     }
 
     /**
@@ -154,25 +153,21 @@ class Board16 {
      * [COMPLETION]
      */
     void right() {
-        int[] temp = new int[]{};
-        int x = 0;
-        for (int i = 0; i < board.length; i++) {
+        int[] temp = new int[board.length];
+        int x = board.length -1;
+        for (int i = board.length - 1; i >= 0; i--) {
             if (board[i] > 0) {
-                temp[temp.length - 1] = board[i];
+                temp[x--] = board[i];
                 board[i] = 0;
             }
         }
-        for (int i = numEmptyTiles(); i < board.length; i++) {
-            board[i + 1] = temp[x];
-            x++;
-        }
+        System.arraycopy(temp, 0, board, 0, temp.length);
         for (int i = board.length - 1; i > 0; i--) {
             if (board[i] == board[i - 1]) {
                 board[i] += board[i - 1];
                 board[i - 1] = 0;
             }
         }
-        insertRandomTile();
     }
 
 

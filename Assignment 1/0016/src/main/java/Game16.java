@@ -15,7 +15,7 @@ public class Game16 {
     private final int SIZE = 5; // number of position on the board
     private boolean hasMessageDisplayed = false; // managing "Game won" message 
 
-    public Game16 () {
+    public Game16() {
         UI.addButton("Restart", this::startGame);
         UI.addButton("Quit", UI::quit);
 
@@ -31,18 +31,19 @@ public class Game16 {
         startGame();
     }
 
-    /** Respond to key actions */
-    public void doKey(String key) {
-        if (key.equals("Left") || key.equals("Right"))
+    /**
+     * Respond to key actions
+     */
+    private void doKey(String key) {
+        if (key.equals("Left") || key.equals("Right")) {
             move(key);
+        }
     }
 
     private void startGame() {
         UI.clearGraphics();
-        
         hasMessageDisplayed = false;
-        
-        board = new Board16 (SIZE);
+        board = new Board16(SIZE);
         board.insertRandomTile();
         board.redraw();
     }
@@ -52,28 +53,23 @@ public class Game16 {
             UI.println("Board needs to be restarted.");
             return;
         }
-
-        if (direction.equals("Left"))
+        if (direction.equals("Left")) {
             board.left();
-        else if (direction.equals("Right"))
+        } else if (direction.equals("Right")) {
             board.right();
-            
+        }
         board.redraw();
-
         // Only display the "WON" message once
         if (!hasMessageDisplayed && board.hasReachedTarget()) {
             hasMessageDisplayed = true;
             board.displayMessage("Game won!!!");
             UI.println("\nYou can restart for a new game or carry on with this game.");
-            
             return;
         }
-
         // Insert a new random tile
         UI.sleep(20);
         board.insertRandomTile();
         board.redraw();
-
         // Check if the game is over
         if (board.isGameOver()) {
             board.displayMessage("Game OVER!!!");
@@ -81,7 +77,7 @@ public class Game16 {
         }
     }
 
-    public static void main(String[] arguments){
+    public static void main(String[] arguments) {
         new Game16();
-    }   
+    }
 }

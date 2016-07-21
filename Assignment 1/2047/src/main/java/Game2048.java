@@ -18,12 +18,12 @@ import java.util.List;
 
 public class Game2048 {
 
-    Board2048 board; // board representation
-    List <String> keys = new ArrayList <String> ();  // set of allowed keys
+    private Board2048 board; // board representation
+    private List <String> keys = new ArrayList<>();  // set of allowed keys
 
     private boolean hasMessageDisplayed = false;
 
-    public Game2048 () {
+    private Game2048() {
         //Consuming the event stops the window from moving when you press keys
         ((JComponent)UI.theUI.canvas).addKeyListener(new KeyAdapter() {
             @Override
@@ -31,6 +31,7 @@ public class Game2048 {
                 e.consume();
             }
         });
+        ((JComponent)UI.theUI.canvas).requestFocus();
         UI.addButton("Instructions", this::printInstructions);
         UI.addButton("Restart", this::startGame);
         UI.addButton("Quit", UI::quit);
@@ -48,7 +49,7 @@ public class Game2048 {
     }
 
     /** Respond to key actions */
-    public void doKey(String key) {
+    private void doKey(String key) {
         if (keys.contains(key))
             move(key);
     }
@@ -86,14 +87,20 @@ public class Game2048 {
             return;
         }
 
-        if (direction.equals("Left"))
-            board.left();
-        else if (direction.equals("Right"))
-            board.right();
-        else if (direction.equals("Up"))
-            board.up();
-        else if (direction.equals("Down"))
-            board.down();
+        switch (direction) {
+            case "Left":
+                board.left();
+                break;
+            case "Right":
+                board.right();
+                break;
+            case "Up":
+                board.up();
+                break;
+            case "Down":
+                board.down();
+                break;
+        }
             
         board.redraw();
 

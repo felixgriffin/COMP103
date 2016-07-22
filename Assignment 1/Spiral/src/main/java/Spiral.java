@@ -1,7 +1,6 @@
 import ecs100.UI;
 
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * Started by Shaun on 19/07/2016.
@@ -50,13 +49,8 @@ public class Spiral {
 
     private void doSpiral() {
         clear();
-        int count = 1;
         num = 2;
-        int x = 0;
-        int y = 0;
-        int oldX = 0;
-        int oldY = 0;
-        int dir = 0;
+        int count = 1, x = 0, y = 0, oldX, oldY, dir = 0;
         while (count <= 100) {
             oldX = x;
             oldY = y;

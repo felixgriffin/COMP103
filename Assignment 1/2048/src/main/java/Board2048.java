@@ -48,9 +48,9 @@ class Board2048 {
      * as they could be compressed to fewer tiles by a player move.
      */
     boolean isGameOver() {
-        for (int row = 0; row < board.length - 1; row++) {
+        for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
-                if (board[row] == board[row + 1] || board[col] == board[col + 1] || board[row][col] == 0) {
+                if ((row < board.length - 1 && board[row][col] == board[row + 1][col]) || (col < board.length - 1 && board[row][col] == board[row][col + 1]) || board[row][col] == 0) {
                     return false;
                 }
             }
@@ -88,7 +88,6 @@ class Board2048 {
         for (int col = 0; col < board.length; col++) {
             for (int row = 0; row < board[col].length; row++) {
                 if (board[row][col] == 0) {
-                    temp++;
                     if (temp == i) {
                         if (j < LIMIT) {
                             board[row][col] = 2;
@@ -97,6 +96,7 @@ class Board2048 {
                         }
                         return;
                     }
+                    temp++;
                 }
             }
         }
@@ -122,9 +122,9 @@ class Board2048 {
      * the second one, and adding an empty tile on the right of the board.
      */
     void left() {
-        int i = 0;
-        int[] temp = new int[board.length];
         for (int row = 0; row < board[0].length; row++) {
+            int[] temp = new int[board.length];
+            int i = 0;
             for (int col = 0; col < board.length; col++) {
                 if (board[row][col] > 0) {
                     temp[i++] = board[row][col];
@@ -160,9 +160,9 @@ class Board2048 {
      * the second one, and adding an empty tile on the left of the board.
      */
     void right() {
-        int[] temp = new int[board.length];
-        int x = board.length - 1;
         for (int row = 0; row < board[0].length; row++) {
+            int[] temp = new int[board.length];
+            int x = board.length - 1;
             for (int i = board.length - 1; i >= 0; i--) {
                 if (board[row][i] > 0) {
                     temp[x--] = board[row][i];
@@ -191,7 +191,25 @@ class Board2048 {
      * the second one, and adding an empty tile at the bottom of the board.
      */
     void up() {
-        /*# YOUR CODE HERE */
+        for (int col = 0; col < board[0].length; col++) {
+            int[] temp = new int[board.length];
+            int i = 0;
+            for (int row = 0; row < board.length; row++) {
+                if (board[row][col] > 0) {
+                    temp[i++] = board[row][col];
+                    board[row][col] = 0;
+                }
+            }
+            for (int j = 0; j < board[0].length; j++) {
+                board[j][col] = temp[j];
+            }
+            for (int row = 0; row < board.length - 1; row++) {
+                if (board[row][col] == board[row + 1][col]) {
+                    board[row][col] += board[row + 1][col];
+                    board[row + 1][col] = 0;
+                }
+            }
+        }
 
     }
 
@@ -206,8 +224,25 @@ class Board2048 {
      * the second one, and adding an empty tile at the top of the board.
      */
     void down() {
-        /*# YOUR CODE HERE */
-
+        for (int col = 0; col < board[0].length; col++) {
+            int[] temp = new int[board.length];
+            int x = board.length - 1;
+            for (int row = board.length - 1; row >= 0; row--) {
+                if (board[row][col] > 0) {
+                    temp[x--] = board[row][col];
+                    board[row][col] = 0;
+                }
+            }
+            for (int j = 0; j < board[0].length; j++) {
+                board[j][col] = temp[j];
+            }
+            for (int row = board.length - 1; row > 0; row--) {
+                if (board[row][col] == board[row - 1][col]) {
+                    board[row][col] += board[row - 1][col];
+                    board[row - 1][col] = 0;
+                }
+            }
+        }
     }
 
     public String toString() {

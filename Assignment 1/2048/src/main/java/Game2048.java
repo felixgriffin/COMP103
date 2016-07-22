@@ -73,9 +73,7 @@ public class Game2048 {
 
     private void startGame() {
         UI.clearGraphics();
-
         hasMessageDisplayed = false;
-
         board = new Board2048();
         board.insertRandomTile();
         board.redraw();

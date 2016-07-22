@@ -75,28 +75,31 @@ class Board2048 {
     }
 
     /**
-     * Insert a random number (either 2 or 4) at a randon empty tile.
+     * Insert a random number (either 2 or 4) at a random empty tile.
      * Note that 7 out of 10 times the number should be 2.
      * An empty tile is one which holds the value 0.
      */
     void insertRandomTile() {
-        int x;
         int temp = 0;
-        x =(int) (Math.random() * numEmptyTiles());
-        int y = (int) (Math.random() * 10);
+
+        int i = (int) (Math.random() * numEmptyTiles());
+        //choosing what num goes in
+        int j = (int) (Math.random() * 10);
         for (int col = 0; col < board.length; col++) {
             for (int row = 0; row < board[col].length; row++) {
-               temp++;
-                if (temp == x) {
-                    if (y < LIMIT) {
-                        board[row][x] = 2;
-                    } else {
-                        board[row][x] = 4;
+                if (board[row][col] == 0) {
+                    temp++;
+                    if (temp == i) {
+                        if (j < LIMIT) {
+                            board[row][col] = 2;
+                        } else {
+                            board[row][col] = 4;
+                        }
+                        return;
                     }
                 }
             }
         }
-
     }
 
     /**
@@ -119,20 +122,20 @@ class Board2048 {
      * the second one, and adding an empty tile on the right of the board.
      */
     void left() {
-        int x = 0;
+        int i = 0;
+        int[] temp = new int[board.length];
         for (int row = 0; row < board[0].length; row++) {
-            int[] temp = new int[board.length];
-            for (int i = 0; i < board.length; i++) {
-                if (board[row][i] > 0) {
-                    temp[x++] = board[row][i];
-                    board[row][i] = 0;
+            for (int col = 0; col < board.length; col++) {
+                if (board[row][col] > 0) {
+                    temp[i++] = board[row][col];
+                    board[row][col] = 0;
                 }
             }
             board[row] = temp;
-            for (int i = 0; i < board.length - 1; i++) {
-                if (board[row][i] == board[row][i + 1]) {
-                    board[row][i] += board[row][i + 1];
-                    board[row][i + 1] = 0;
+            for (int col = 0; col < board.length - 1; col++) {
+                if (board[row][col] == board[row][col + 1]) {
+                    board[row][col] += board[row][col + 1];
+                    board[row][col + 1] = 0;
                 }
             }
         }

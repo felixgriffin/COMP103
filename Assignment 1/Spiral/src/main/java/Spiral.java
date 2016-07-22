@@ -12,14 +12,20 @@ public class Spiral {
 
 
     private Spiral() {
-        UI.addButton("Line", this::line);
-        UI.addButton("Square", this::square);
+        UI.addButton("Line", this::doLine);
+        UI.addButton("Square", this::doSquare);
         UI.addButton("Spiral", this::doSpiral);
         UI.addButton("Clear", UI::clearGraphics);
         UI.addButton("Exit", UI::quit);
     }
-
-    private void line() {
+    private void clear() {
+        for (int x = 0; x < boxes.length; x++) {
+            for (int y = 0; y < boxes[1].length; y++) {
+                boxes[x][y] = -1;
+            }
+        }
+    }
+    private void doLine() {
         num = 25;
         for (int x = 0; x < boxes.length; x++) {
             boxes[x][0] = x;
@@ -30,7 +36,7 @@ public class Spiral {
         draw();
     }
 
-    private void square() {
+    private void doSquare() {
         int count = 1;
         num = 2;
         for (int row = 0; row < boxes.length; row++) {
@@ -40,8 +46,36 @@ public class Spiral {
             }
         }
         draw();
-        System.out.print(Arrays.deepToString(boxes));
     }
+
+    private void doSpiral() {
+        clear();
+        int count = 1;
+        num = 2;
+        int x = 0;
+        int y = 0;
+        int oldX = 0;
+        int oldY = 0;
+        int dir = 0;
+        while (count <= 100) {
+            oldX = x;
+            oldY = y;
+            boxes[x][y]=count;
+            if (dir == 0) x++;
+            if (dir == 1) y++;
+            if (dir == 2) x--;
+            if (dir == 3) y--;
+            if (x >= boxes.length || y >= boxes[0].length || x < 0 || y < 0 || boxes[x][y]!=-1) {
+                x = oldX;
+                y = oldY;
+                dir=++dir%4;
+            } else {
+                count++;
+            }
+        }
+        draw();
+    }
+
 
     private void draw() {
         UI.clearGraphics();
@@ -51,15 +85,11 @@ public class Spiral {
                 UI.setColor(new Color(num * boxes[x][y]));
                 if (boxes[x][y] != -1) {
                     UI.fillRect((size * (x) + 10), (size * y) + 10, size, size);
-                    UI.drawString(boxes[x][y]+"",(size * (x) + 10)+(size /2), (size * y) + 10)+(size /2);
+                    UI.setColor(new Color(255, 255, 255));
+                    UI.drawString(boxes[x][y] + "", (size * (x) + (size / 2)), ((size * y) + 15) + (size / 2));
                 }
             }
         }
-
-    }
-
-    private void doSpiral() {
-
     }
 
     public static void main(String[] arguments) {

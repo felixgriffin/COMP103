@@ -10,12 +10,21 @@
 
 import ecs100.*;
 
-public class Game16 {
-    Board16 board; // board representation
-    private final int SIZE = 5; // number of position on the board
-    private boolean hasMessageDisplayed = false; // managing "Game won" message 
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-    public Game16() {
+public class Game16 {
+    private Board16 board; // board representation
+    private boolean hasMessageDisplayed = false; // managing "Game won" message
+
+    private Game16() {
+        ((JComponent)UI.theUI.canvas).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                e.consume();
+            }
+        });
         UI.addButton("Restart", this::startGame);
         UI.addButton("Quit", UI::quit);
 
@@ -43,6 +52,7 @@ public class Game16 {
     private void startGame() {
         UI.clearGraphics();
         hasMessageDisplayed = false;
+        int SIZE = 5;
         board = new Board16(SIZE);
         board.insertRandomTile();
         board.redraw();

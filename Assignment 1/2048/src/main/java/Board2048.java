@@ -138,6 +138,15 @@ class Board2048 {
                     board[row][col + 1] = 0;
                 }
             }
+            temp = new int[board.length];
+            i = 0;
+            for (int col = 0; col < board.length; col++) {
+                if (board[row][col] > 0) {
+                    temp[i++] = board[row][col];
+                    board[row][col] = 0;
+                }
+            }
+            board[row] = temp;
         }
 
     }
@@ -176,6 +185,15 @@ class Board2048 {
                     board[row][i - 1] = 0;
                 }
             }
+            temp = new int[board.length];
+            x = board.length - 1;
+            for (int i = board.length - 1; i >= 0; i--) {
+                if (board[row][i] > 0) {
+                    temp[x--] = board[row][i];
+                    board[row][i] = 0;
+                }
+            }
+            board[row] = temp;
         }
     }
 
@@ -209,6 +227,17 @@ class Board2048 {
                     board[row + 1][col] = 0;
                 }
             }
+            temp = new int[board.length];
+            i = 0;
+            for (int row = 0; row < board.length; row++) {
+                if (board[row][col] > 0) {
+                    temp[i++] = board[row][col];
+                    board[row][col] = 0;
+                }
+            }
+            for (int j = 0; j < board[0].length; j++) {
+                board[j][col] = temp[j];
+            }
         }
 
     }
@@ -241,6 +270,17 @@ class Board2048 {
                     board[row][col] += board[row - 1][col];
                     board[row - 1][col] = 0;
                 }
+            }
+            temp = new int[board.length];
+            x = board.length - 1;
+            for (int row = board.length - 1; row >= 0; row--) {
+                if (board[row][col] > 0) {
+                    temp[x--] = board[row][col];
+                    board[row][col] = 0;
+                }
+            }
+            for (int j = 0; j < board[0].length; j++) {
+                board[j][col] = temp[j];
             }
         }
     }
@@ -399,5 +439,11 @@ class Board2048 {
         UI.setFontSize(20);
         UI.setColor(Color.blue);
         UI.drawString("" + score, x, y);
+    }
+    int[][] getData() {
+        return board;
+    }
+    void setData(int[][] data) {
+        this.board = data;
     }
 }

@@ -8,10 +8,9 @@
  * ID:
  */
 
-import ecs100.*;
+import ecs100.UI;
 
-import java.awt.Color;
-import java.util.Arrays;
+import java.awt.*;
 
 class Board16 {
 
@@ -48,8 +47,8 @@ class Board16 {
      */
 
     boolean isGameOver() {
-        for (int i = 0; i < board.length-1; i++) {
-            if (board[i] == board[i + 1] || board[i] == 0) {
+        for (int i = 0; i < board.length; i++) {
+            if (i < board.length - 1 && board[i] == board[i + 1] || board[i] == 0) {
                 return false;
             }
         }
@@ -87,8 +86,8 @@ class Board16 {
                 x++;
             }
         }
-        x = temp[(int)(Math.random()*temp.length)];
-        int y= (int) (Math.random() * 10);
+        x = temp[(int) (Math.random() * temp.length)];
+        int y = (int) (Math.random() * 10);
         if (y < LIMIT) {
             board[x] = 2;
         } else {
@@ -118,7 +117,7 @@ class Board16 {
      * [COMPLETION]
      */
     void left() {
-        int x=0;
+        int x = 0;
         int[] temp = new int[board.length];
         for (int i = 0; i < board.length; i++) {
             if (board[i] > 0) {
@@ -154,7 +153,7 @@ class Board16 {
      */
     void right() {
         int[] temp = new int[board.length];
-        int x = board.length -1;
+        int x = board.length - 1;
         for (int i = board.length - 1; i >= 0; i--) {
             if (board[i] > 0) {
                 temp[x--] = board[i];

@@ -24,6 +24,8 @@
         <processorPath useClasspath="true" />
         <module name="0016" />
         <module name="2047" />
+        <module name="FastFood" />
+        <module name="Sokoban" />
         <module name="Spiral" />
       </profile>
     </annotationProcessing>
@@ -31,7 +33,10 @@
       <module name="0016" target="1.8" />
       <module name="2047" target="1.8" />
       <module name="Assignment 1" target="1.8" />
+      <module name="Assignment 2" target="1.8" />
       <module name="COMP103" target="1.8" />
+      <module name="FastFood" target="1.8" />
+      <module name="Sokoban" target="1.8" />
       <module name="Spiral" target="1.8" />
     </bytecodeTargetLevel>
   </component>

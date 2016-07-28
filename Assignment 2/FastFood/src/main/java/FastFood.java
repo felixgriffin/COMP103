@@ -50,10 +50,7 @@ public class FastFood{
     }
 
     /** Creates a new order and puts it on the queue to be processed */
-    public void generateOrder() {
-        /*# YOUR CODE HERE */
-        
-    }
+    private void generateOrder() {orders.add(new Order());}
 
     /** As long as there is an order in the queue, adds the specified
      *  item to the order at the head of the queue,
@@ -62,8 +59,9 @@ public class FastFood{
      *  of the item is deducted from the current balance.
      */
     public void addItem(String item) {
-        /*# YOUR CODE HERE */
-        
+        while(orders.size()>0){
+
+        }
     }
 
     /** As long as there is an order at the front of the queue and it is ready,
@@ -72,7 +70,6 @@ public class FastFood{
      *  If there is not a ready order on the queue, it prints a warning message.
      */
     public void deliverOrder() {
-        /*# YOUR CODE HERE */
         
     }
 
@@ -81,8 +78,7 @@ public class FastFood{
      */
     public void drawOrders() {
         UI.clearGraphics();
-        /*# YOUR CODE HERE */
-        
+
     }
 
     // In the game version, the orders must be automatically generated.
@@ -145,7 +141,5 @@ public class FastFood{
         }
     }
 
-    public static void main(String args[]) {
-        FastFood ff = new FastFood();
-    }
+    public static void main(String args[]){new FastFood();}
 }

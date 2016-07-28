@@ -10,10 +10,10 @@
  *  Also has a method to return the next Coord in a given direction.
  */
 
-public class Coord {
+class Coord {
 
-    public final int row;  // because they are final (can't be changed), it is
-    public final int col;  // safe to make these fields public.
+    final int row;  // because they are final (can't be changed), it is
+    final int col;  // safe to make these fields public.
 
     Coord (int row, int col) {
         this.row = row;
@@ -21,7 +21,7 @@ public class Coord {
     }
 
     /** Return the next coord in the specified direction */
-    public Coord next(String direction) {
+    Coord next(String direction) {
         if (direction.equals("up"))    return new Coord(row-1, col);
         if (direction.equals("down"))  return new Coord(row+1, col);
         if (direction.equals("left"))  return new Coord(row, col-1);

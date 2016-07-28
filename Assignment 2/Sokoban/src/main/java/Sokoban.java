@@ -38,9 +38,9 @@ public class Sokoban {
      *  Constructs a new Sokoban object
      *  and set up the GUI.
      */
-    public Sokoban() {
+    private Sokoban() {
         UI.addButton("New Level", () -> {level = (level+1)%maxLevels; load(level);});
-        UI.addButton("Restart", () -> {load(level);});
+        UI.addButton("Restart", () -> load(level));
         UI.addButton("left", () -> doAction("left"));
         UI.addButton("up", () -> doAction("up"));
         UI.addButton("down", () -> doAction("down"));
@@ -55,7 +55,7 @@ public class Sokoban {
     }
 
     /** Responds to key actions */
-    public void doKey(String key) {
+    private void doKey(String key) {
         doAction(keyToAction.get(key));
     }
 
@@ -66,7 +66,7 @@ public class Sokoban {
      *  Otherwise, if there is anything in front of the Worker, do nothing.
      * @param action the action to perform 
      */
-    public void doAction(String action) {
+    private void doAction(String action) {
         if (action==null) 
             return;
 
@@ -105,7 +105,7 @@ public class Sokoban {
     /** Moves the worker into the new position (guaranteed to be empty) 
      * @param direction the direction the worker is heading
      */
-    public void move(String direction) {
+    private void move(String direction) {
         drawSquare(workerPosition); // display square under worker
         workerPosition = workerPosition.next(direction); // new worker position
         drawWorker();  // display worker at new position
@@ -116,7 +116,7 @@ public class Sokoban {
     /** Push: Moves the Worker, pushing the box one step 
      *  @param direction the direction the worker is heading
      */
-    public void push(String direction) {
+    private void push(String direction) {
         drawSquare(workerPosition); // display square under worker
 
         workerPosition = workerPosition.next(direction); // new worker position
@@ -154,11 +154,11 @@ public class Sokoban {
     }
 
     /** Load a grid of squares (and Worker position) from a file */
-    public void load(int level) {
+    private void load(int level) {
         File f = new File("warehouse" + level + ".txt");
 
         if (f.exists()) {
-            List<String> lines = new ArrayList<String>();
+            List<String> lines = new ArrayList<>();
 
             try {
                 Scanner sc = new Scanner(f);
@@ -210,7 +210,7 @@ public class Sokoban {
     private static final int squareSize = 25;
 
     /** Draw the grid of squares on the screen, and the Worker */
-    public void draw() {
+    private void draw() {
         UI.clearGraphics();
         // draw squares
         for(int row = 0; row<rows; row++)
@@ -234,7 +234,7 @@ public class Sokoban {
     private void drawSquare(int row, int col) {
         String imageName = squares[row][col].imageName();
 
-        if (imageName != ".gif")
+        if (!Objects.equals(imageName, ".gif"))
             UI.drawImage(imageName,
                 leftMargin+(squareSize* col),
                 topMargin+(squareSize* row),
@@ -245,7 +245,7 @@ public class Sokoban {
      *  @returns true, if the warehouse is solved, i.e.,  
      *  all the shelves have boxes on them 
      */
-    public boolean isSolved() {
+    private boolean isSolved() {
         for(int row = 0; row<rows; row++) {
             for(int col = 0; col<cols; col++)
                 if(squares[row][col].isEmptyShelf())
@@ -258,7 +258,7 @@ public class Sokoban {
     /** 
      * @return the direction that is opposite of the parameter 
      */
-    public String oppositeDirection(String direction) {
+    private String oppositeDirection(String direction) {
         if ( direction.equalsIgnoreCase("right")) return "left";
         if ( direction.equalsIgnoreCase("left"))  return "right";
         if ( direction.equalsIgnoreCase("up"))    return "down";
@@ -268,7 +268,7 @@ public class Sokoban {
 
     private void initialiseMappings() {
         // character in level file -> square type
-        fileCharacterToSquareType = new HashMap<Character, String>();
+        fileCharacterToSquareType = new HashMap<>();
         fileCharacterToSquareType.put('.',  "empty");
         fileCharacterToSquareType.put('A', "empty");  // initial position of worker is an empty square beneath
         fileCharacterToSquareType.put('#',  "wall");
@@ -276,14 +276,14 @@ public class Sokoban {
         fileCharacterToSquareType.put('B',  "box");
 
         // worker direction ->  image of worker
-        directionToWorkerImage = new HashMap<String, String>();
+        directionToWorkerImage = new HashMap<>();
         directionToWorkerImage.put("up", "worker-up.gif");
         directionToWorkerImage.put("down", "worker-down.gif");
         directionToWorkerImage.put("left", "worker-left.gif");
         directionToWorkerImage.put("right", "worker-right.gif");
 
         // key string -> action to perform
-        keyToAction = new HashMap<String,String>();
+        keyToAction = new HashMap<>();
         keyToAction.put("i", "up");     keyToAction.put("I", "up");   
         keyToAction.put("k", "down");   keyToAction.put("K", "down"); 
         keyToAction.put("j", "left");   keyToAction.put("J", "left"); 

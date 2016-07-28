@@ -4,59 +4,59 @@
 
 /* Code for COMP 103 Assignment 2  */
 
-/** 
+import java.util.Objects;
+
+/**
  *  The possible squares, along with useful methods.
  *  Would be better represented by an Enum class.
  */
 
-public class Square {
+class Square {
     private String type;
 
     Square(String t){
         type = t;
     }
 
-    public String imageName() {
+    String imageName() {
         return type +".gif";
     }
 
     /** Does this shelf still miss its box? */
-    public boolean isEmptyShelf() {
-        return type == "emptyShelf";
+    boolean isEmptyShelf() {
+        return Objects.equals(type, "emptyShelf");
     }
 
     /** Whether there is a box on this square */
-    public boolean hasBox() {
+    boolean hasBox() {
         return (type.contains("box"));
     }
 
     /** Whether the square is free to move onto */
-    public boolean isFree() {
+    boolean isFree() {
         return (type.contains("empty"));    }
 
     /** The square you get if you push a box off this square */
-    public void moveBoxOff() {
-        if (type=="box") {
+    void moveBoxOff() {
+        if (Objects.equals(type, "box")) {
             type = "empty";
             return;
         }
 
-        if (type=="boxOnShelf") {
+        if (Objects.equals(type, "boxOnShelf")) {
             type = "emptyShelf";
-            return;
         }
     }
 
     /** The square you get if you push a box on to this square */
-    public void moveBoxOn() {
-        if (type=="empty") {
+    void moveBoxOn() {
+        if (Objects.equals(type, "empty")) {
             type = "box";
             return;
         }
 
-        if (type=="emptyShelf") {
+        if (Objects.equals(type, "emptyShelf")) {
             type = "boxOnShelf";
-            return;
         }
     }
 }

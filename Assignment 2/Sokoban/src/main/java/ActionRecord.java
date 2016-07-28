@@ -4,7 +4,7 @@
 
 /* Code for COMP 103 Assignment 2 */
 
-/** 
+/**
  * Records an action (move or push) in a given direction.
  */
 
@@ -12,10 +12,10 @@ public class ActionRecord {
     private boolean isPush;  // if it is not a "push", it is a "move"
     private String direction;
 
-    private ActionRecord(String action, String dir) {
-        if (action.equalsIgnoreCase("push"))
+    ActionRecord(String action, String dir) {
+        if (action.equalsIgnoreCase("push")) {
             isPush = true;
-
+        }
         direction = dir;
     }
 
@@ -23,11 +23,11 @@ public class ActionRecord {
         return isPush;
     }
 
-    private boolean isMove() {
+    boolean isMove() {
         return !isPush;
     }
 
-    public String direction() {
+    String direction() {
         return direction;
     }
 
@@ -35,7 +35,9 @@ public class ActionRecord {
         return ((isPush ? "Push" : "Move") + " to " + direction);
     }
 
-    /** Test method */
+    /**
+     * Test method
+     */
     public static void main(String[] args) {
         ActionRecord A = new ActionRecord("push", "up");
         System.out.println(A + " is a push: " + A.isPush());

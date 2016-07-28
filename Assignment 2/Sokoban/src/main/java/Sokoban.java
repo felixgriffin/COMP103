@@ -9,10 +9,11 @@
  */
 
 import ecs100.*;
+
 import java.util.*;
 import java.io.*;
 
-/** 
+/**
  * Sokoban
  */
 
@@ -22,7 +23,7 @@ public class Sokoban {
     private int rows;                  // the height of the warehouse
     private int cols;                   // the width of the warehouse
 
-    private Coord workerPosition;     // the position of the worker
+    private CoOrd workerPosition;     // the position of the worker
     private String workerDirection = "left"; // the direction the worker is facing
 
     private final int maxLevels = 4; // maximum number of levels defined
@@ -31,20 +32,27 @@ public class Sokoban {
 
     private Map<Character, String> fileCharacterToSquareType;  // character in level file -> square object
     private Map<String, String> directionToWorkerImage;                // worker direction ->  image of worker
-    private Map<String, String> keyToAction;                                  // key string -> action to perform
+    private Map<String, String> keyToAction;                                  // key string -> record to perform
+    private Stack<ActionRecord> record = new Stack<>();
+
 
     // Constructors
-    /** 
-     *  Constructs a new Sokoban object
-     *  and set up the GUI.
+
+    /**
+     * Constructs a new Sokoban object
+     * and set up the GUI.
      */
     private Sokoban() {
-        UI.addButton("New Level", () -> {level = (level+1)%maxLevels; load(level);});
+        UI.addButton("New Level", () -> {
+            level = (level + 1) % maxLevels;
+            load(level);
+        });
         UI.addButton("Restart", () -> load(level));
         UI.addButton("left", () -> doAction("left"));
         UI.addButton("up", () -> doAction("up"));
         UI.addButton("down", () -> doAction("down"));
         UI.addButton("right", () -> doAction("right"));
+        UI.addButton("Undo", this::undo);
 
         UI.println("Push the boxes\n to their target postions.");
         UI.println("You may use keys (wasd or ijkl and u)");
@@ -54,73 +62,100 @@ public class Sokoban {
         load(0); // start with level zero
     }
 
-    /** Responds to key actions */
+    private void undo() {
+        if(record.size()>0){
+        workerDirection = record.peek().direction();
+        if (record.peek().isMove()) {
+            move(oppositeDirection(record.peek().direction()));
+        } else {
+            pull(oppositeDirection(record.peek().direction()));
+        }
+        record.pop();
+    }}
+
+    /**
+     * Responds to key actions
+     */
     private void doKey(String key) {
+        if (key.equals("U") || key.equals("u")) {
+            undo();
+            return;
+        }
         doAction(keyToAction.get(key));
     }
 
-    /** 
-     *  Moves the worker in the specified direction, if possible.
-     *  If there is box in front of the Worker and a space in front of the box,
-     *  then push the box.
-     *  Otherwise, if there is anything in front of the Worker, do nothing.
-     * @param action the action to perform 
+    /**
+     * Moves the worker in the specified direction, if possible.
+     * If there is box in front of the Worker and a space in front of the box,
+     * then push the box.
+     * Otherwise, if there is anything in front of the Worker, do nothing.
+     *
+     * @param action the record to perform
      */
     private void doAction(String action) {
-        if (action==null) 
+        if (action == null) {
             return;
+        }
 
-        workerDirection = action; // action can only be a move; record it.
-
-        Coord nextP = workerPosition.next(workerDirection);  // where the worker would move to
-        Coord nextNextP = nextP.next(workerDirection);         // where the worker would move to in two steps
+        workerDirection = action; // record can only be a move; record it.
+        CoOrd nextP = workerPosition.next(workerDirection);  // where the worker would move to
+        CoOrd nextNextP = nextP.next(workerDirection);       // where the worker would move to in two steps
 
         // is a box push possible?
-        if ( squares[nextP.row][nextP.col].hasBox() && squares[nextNextP.row][nextNextP.col].isFree() ) {
+        if (squares[nextP.row][nextP.col].hasBox() && squares[nextNextP.row][nextNextP.col].isFree()) {
             push(workerDirection);
+            record.push(new ActionRecord("push", workerDirection));
 
             if (isSolved()) {
                 UI.println("\n*** YOU WIN! ***\n");
 
                 // flicker with the boxes to indicate win
-                for (int i=0; i<12; i++) {
-                    for (int row=0; row<rows; row++)
-                        for (int column=0; column<cols; column++) {
-                            Square square=squares[row][column];
+                for (int i = 0; i < 12; i++) {
+                    for (int row = 0; row < rows; row++)
+                        for (int column = 0; column < cols; column++) {
+                            Square square = squares[row][column];
 
                             // toggle shelf squares
-                            if (square.hasBox()) {square.moveBoxOff(); drawSquare(row, column);}
-                            else if (square.isEmptyShelf()) {square.moveBoxOn(); drawSquare(row, column);}
+                            if (square.hasBox()) {
+                                square.moveBoxOff();
+                                drawSquare(row, column);
+                            } else if (square.isEmptyShelf()) {
+                                square.moveBoxOn();
+                                drawSquare(row, column);
+                            }
                         }
 
                     UI.sleep(100);
                 }
             }
-        }
-        else if ( squares[nextP.row][nextP.col].isFree() ) { // can the worker move?
+        } else if (squares[nextP.row][nextP.col].isFree()) { // can the worker move?
+            record.push(new ActionRecord("move", workerDirection));
             move(workerDirection);
         }
     }
 
-    /** Moves the worker into the new position (guaranteed to be empty) 
+    /**
+     * Moves the worker into the new position (guaranteed to be empty)
+     *
      * @param direction the direction the worker is heading
      */
     private void move(String direction) {
         drawSquare(workerPosition); // display square under worker
         workerPosition = workerPosition.next(direction); // new worker position
         drawWorker();  // display worker at new position
-
         Trace.println("Move " + direction);
     }
 
-    /** Push: Moves the Worker, pushing the box one step 
-     *  @param direction the direction the worker is heading
+    /**
+     * Push: Moves the Worker, pushing the box one step
+     *
+     * @param direction the direction the worker is heading
      */
     private void push(String direction) {
         drawSquare(workerPosition); // display square under worker
 
         workerPosition = workerPosition.next(direction); // new worker position
-        Coord boxPosition = workerPosition.next(direction); // this is two steps from the original worker position
+        CoOrd boxPosition = workerPosition.next(direction); // this is two steps from the original worker position
 
         squares[workerPosition.row][workerPosition.col].moveBoxOff(); // remove box from its current position
         drawSquare(workerPosition); // display square without the box
@@ -132,13 +167,14 @@ public class Sokoban {
         Trace.println("Push " + direction);
     }
 
-    /** Pull: (useful for undoing a push in the opposite direction)
-     *  move the Worker in direction from direction,
-     *  pulling the box into the Worker's old position
+    /**
+     * Pull: (useful for undoing a push in the opposite direction)
+     * move the Worker in direction from direction,
+     * pulling the box into the Worker's old position
      */
-    public void pull(String direction) {
+    private void pull(String direction) {
         String oppositeDir = oppositeDirection(direction);
-        Coord boxP = workerPosition.next(oppositeDir);
+        CoOrd boxP = workerPosition.next(oppositeDir);
 
         squares[boxP.row][boxP.col].moveBoxOff();
         squares[workerPosition.row][workerPosition.col].moveBoxOn();
@@ -153,7 +189,9 @@ public class Sokoban {
         Trace.println("Pull " + direction);
     }
 
-    /** Load a grid of squares (and Worker position) from a file */
+    /**
+     * Load a grid of squares (and Worker position) from a file
+     */
     private void load(int level) {
         File f = new File("warehouse" + level + ".txt");
 
@@ -167,7 +205,7 @@ public class Sokoban {
                     lines.add(sc.nextLine());
 
                 sc.close();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Trace.println("File error: " + e);
             }
 
@@ -176,25 +214,25 @@ public class Sokoban {
 
             squares = new Square[rows][cols];
 
-            for(int row = 0; row < rows; row++) {
+            for (int row = 0; row < rows; row++) {
                 String line = lines.get(row);
 
-                for(int col = 0; col < cols; col++) {
+                for (int col = 0; col < cols; col++) {
 
-                    if (col>=line.length())
+                    if (col >= line.length())
                         squares[row][col] = new Square("empty");
                     else {
                         char ch = line.charAt(col);
 
-                        if ( fileCharacterToSquareType.containsKey(ch) )
+                        if (fileCharacterToSquareType.containsKey(ch))
                             squares[row][col] = new Square(fileCharacterToSquareType.get(ch));
                         else {
                             squares[row][col] = new Square("empty");
                             UI.printf("Invalid char: (%d, %d) = %c \n", row, col, ch);
                         }
 
-                        if (ch=='A')
-                            workerPosition = new Coord(row,col);
+                        if (ch == 'A')
+                            workerPosition = new CoOrd(row, col);
                     }
                 }
             }
@@ -209,25 +247,27 @@ public class Sokoban {
     private static final int topMargin = 40;
     private static final int squareSize = 25;
 
-    /** Draw the grid of squares on the screen, and the Worker */
+    /**
+     * Draw the grid of squares on the screen, and the Worker
+     */
     private void draw() {
         UI.clearGraphics();
         // draw squares
-        for(int row = 0; row<rows; row++)
-            for(int col = 0; col<cols; col++)
+        for (int row = 0; row < rows; row++)
+            for (int col = 0; col < cols; col++)
                 drawSquare(row, col);
 
         drawWorker();
     }
 
     private void drawWorker() {
-        UI.drawImage(directionToWorkerImage.get(workerDirection),
-            leftMargin+(squareSize* workerPosition.col),
-            topMargin+(squareSize* workerPosition.row),
-            squareSize, squareSize);
+        UI.drawImage(directionToWorkerImage.get(oppositeDirection(workerDirection)),
+                leftMargin + (squareSize * workerPosition.col),
+                topMargin + (squareSize * workerPosition.row),
+                squareSize, squareSize);
     }
 
-    private void drawSquare(Coord pos) {
+    private void drawSquare(CoOrd pos) {
         drawSquare(pos.row, pos.col);
     }
 
@@ -236,44 +276,44 @@ public class Sokoban {
 
         if (!Objects.equals(imageName, ".gif"))
             UI.drawImage(imageName,
-                leftMargin+(squareSize* col),
-                topMargin+(squareSize* row),
-                squareSize, squareSize);
+                    leftMargin + (squareSize * col),
+                    topMargin + (squareSize * row),
+                    squareSize, squareSize);
     }
 
-    /** 
-     *  @returns true, if the warehouse is solved, i.e.,  
-     *  all the shelves have boxes on them 
+    /**
+     * @returns true, if the warehouse is solved, i.e.,
+     * all the shelves have boxes on them
      */
     private boolean isSolved() {
-        for(int row = 0; row<rows; row++) {
-            for(int col = 0; col<cols; col++)
-                if(squares[row][col].isEmptyShelf())
-                    return  false;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++)
+                if (squares[row][col].isEmptyShelf())
+                    return false;
         }
 
         return true;
     }
 
-    /** 
-     * @return the direction that is opposite of the parameter 
+    /**
+     * @return the direction that is opposite of the parameter
      */
     private String oppositeDirection(String direction) {
-        if ( direction.equalsIgnoreCase("right")) return "left";
-        if ( direction.equalsIgnoreCase("left"))  return "right";
-        if ( direction.equalsIgnoreCase("up"))    return "down";
-        if ( direction.equalsIgnoreCase("down"))  return "up";
+        if (direction.equalsIgnoreCase("right")) return "left";
+        if (direction.equalsIgnoreCase("left")) return "right";
+        if (direction.equalsIgnoreCase("up")) return "down";
+        if (direction.equalsIgnoreCase("down")) return "up";
         return direction;
     }
 
     private void initialiseMappings() {
         // character in level file -> square type
         fileCharacterToSquareType = new HashMap<>();
-        fileCharacterToSquareType.put('.',  "empty");
+        fileCharacterToSquareType.put('.', "empty");
         fileCharacterToSquareType.put('A', "empty");  // initial position of worker is an empty square beneath
-        fileCharacterToSquareType.put('#',  "wall");
+        fileCharacterToSquareType.put('#', "wall");
         fileCharacterToSquareType.put('S', "emptyShelf");
-        fileCharacterToSquareType.put('B',  "box");
+        fileCharacterToSquareType.put('B', "box");
 
         // worker direction ->  image of worker
         directionToWorkerImage = new HashMap<>();
@@ -282,17 +322,26 @@ public class Sokoban {
         directionToWorkerImage.put("left", "worker-left.gif");
         directionToWorkerImage.put("right", "worker-right.gif");
 
-        // key string -> action to perform
+        // key string -> record to perform
         keyToAction = new HashMap<>();
-        keyToAction.put("i", "up");     keyToAction.put("I", "up");   
-        keyToAction.put("k", "down");   keyToAction.put("K", "down"); 
-        keyToAction.put("j", "left");   keyToAction.put("J", "left"); 
-        keyToAction.put("l", "right");  keyToAction.put("L", "right");
+        keyToAction.put("i", "up");
+        keyToAction.put("I", "up");
+        keyToAction.put("k", "down");
+        keyToAction.put("K", "down");
+        keyToAction.put("j", "left");
+        keyToAction.put("J", "left");
+        keyToAction.put("l", "right");
+        keyToAction.put("L", "right");
 
-        keyToAction.put("w", "up");     keyToAction.put("W", "up");   
-        keyToAction.put("s", "down");   keyToAction.put("S", "down"); 
-        keyToAction.put("a", "left");   keyToAction.put("A", "left"); 
-        keyToAction.put("d", "right");  keyToAction.put("D", "right");
+        keyToAction.put("w", "up");
+        keyToAction.put("W", "up");
+        keyToAction.put("s", "down");
+        keyToAction.put("S", "down");
+        keyToAction.put("a", "left");
+        keyToAction.put("A", "left");
+        keyToAction.put("d", "right");
+        keyToAction.put("D", "right");
+
     }
 
     public static void main(String[] args) {

@@ -34,7 +34,7 @@ public class Sokoban {
     private Map<String, String> directionToWorkerImage;                // worker direction ->  image of worker
     private Map<String, String> keyToAction;                                  // key string -> record to perform
     private Stack<ActionRecord> record = new Stack<>();
-
+    private Stack<ActionRecord> decord = new Stack<>();
 
     // Constructors
 
@@ -53,25 +53,39 @@ public class Sokoban {
         UI.addButton("down", () -> doAction("down"));
         UI.addButton("right", () -> doAction("right"));
         UI.addButton("Undo", this::undo);
+        UI.addButton("Redo", this::redo);
 
-        UI.println("Push the boxes\n to their target postions.");
-        UI.println("You may use keys (wasd or ijkl and u)");
+        UI.println("Push the boxes\n to their target positions.");
+        UI.println("You may use keys (WASD or IJKL and U or R)");
         UI.setKeyListener(this::doKey);
 
         initialiseMappings();
         load(0); // start with level zero
     }
 
-    private void undo() {
-        if(record.size()>0){
-        workerDirection = record.peek().direction();
-        if (record.peek().isMove()) {
-            move(oppositeDirection(record.peek().direction()));
-        } else {
-            pull(oppositeDirection(record.peek().direction()));
+    private void redo() {
+        if (decord.size() > 0) {
+            workerDirection = decord.peek().direction();
+            if (decord.peek().isMove()) {
+                move(decord.peek().direction());
+            } else {
+                push(decord.peek().direction());
+            }
+           record.push(decord.pop());
         }
-        record.pop();
-    }}
+    }
+
+    private void undo() {
+        if (record.size() > 0) {
+            workerDirection = record.peek().direction();
+            if (record.peek().isMove()) {
+                move(oppositeDirection(record.peek().direction()));
+            } else {
+                pull(oppositeDirection(record.peek().direction()));
+            }
+            decord.push(record.pop());
+        }
+    }
 
     /**
      * Responds to key actions
@@ -79,6 +93,10 @@ public class Sokoban {
     private void doKey(String key) {
         if (key.equals("U") || key.equals("u")) {
             undo();
+            return;
+        }
+        if (key.equals("R") || key.equals("r")) {
+            redo();
             return;
         }
         doAction(keyToAction.get(key));

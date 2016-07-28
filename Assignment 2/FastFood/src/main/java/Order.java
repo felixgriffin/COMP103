@@ -8,13 +8,9 @@
  * ID:
  */
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import ecs100.UI;
 
-/**
+/** 
  * This class is provided as a bad example.
  * Don't do this at home!
  */
@@ -30,7 +26,7 @@ class Order {
     private boolean hasChips;
     private boolean hasBurger;
 
-    public Order() {
+    Order() {
         wantsFish = Math.random() > 0.5;
         wantsChips = Math.random() > 0.5;
         wantsBurger = Math.random() > 0.5;
@@ -43,21 +39,21 @@ class Order {
         }
     }
 
-    /**
+    /** 
      *  The order is ready as long as every item that is
      *  wanted is also ready.
      */
-    public boolean isReady() {
+    boolean isReady() {
         return !(wantsFish && !hasFish) && !(wantsChips && !hasChips) && !(wantsBurger && !hasBurger);
     }
 
-    /**
+    /** 
      *  If the item is wanted but not already in the order,
      *  then put it in the order and return true, to say it was successful.
      *  If the item not wanted, or is already in the order,
      *  then return false to say it failed.
      */
-    public boolean addItemToOrder(String item){
+    boolean addItemToOrder(String item){
         switch (item) {
             case "Fish":
                 if (wantsFish && !hasFish) {
@@ -81,13 +77,13 @@ class Order {
         return false;
     }
 
-    /**
+    /** 
      *  Computes and returns the price of an order.
      *  [CORE]: Uses constants: 2.50 for fish, 1.50 for chips, 5.00 for burger
      *  to add up the prices of each item
      *  [COMPLETION]: Uses a map of prices to look up prices
      */
-    public double getPrice() {
+    double getPrice() {
         double price = 0;
         if (wantsFish) price += 2.50;
         if (wantsChips) price += 1.50;
@@ -95,7 +91,15 @@ class Order {
         return price;
     }
 
-    public void draw(int y) {
+    double getItemPrice(String item) {
+        double price = 0;
+        if (item.equals("fish")) price = 2.50;
+        if (item.equals("Chips")) price = 1.50;
+        if (item.equals("burger")) price = 5.00;
+        return price;
+    }
+
+    void draw(int y) {
         if (wantsFish) UI.drawImage("Fish-grey.png", 10, y);
         if (wantsChips) UI.drawImage("Chips-grey.png", 50, y);
         if (wantsBurger) UI.drawImage("Burger-grey.png", 90, y);

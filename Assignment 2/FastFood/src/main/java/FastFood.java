@@ -9,76 +9,113 @@
  */
 
 import ecs100.*;
+
 import java.util.*;
 
-/** The FastFood game involves customers who generate orders, and the player
- *  who has to fulfill the orders by assembling the right collection of food items.
- *  The goal of the game is to make as much money as possible before
- *  the player gets too far behind the customers and is forced to give up.
- *
- *  The game presents the player with a queue of orders in a fast food outlet.
- *  The player has to fullfill the customer orders by adding the correct items to
- *  the order at the head of the queue.  
- *  When the order is ready, the player can deliver the order, which will
- *  take it off the queue, and will add the price of the order to the balance.
- *  Whenever the player adds an item to the order that doesn't belong in the
- *  order, the price of the item is subtracted from the balance.
- *  The player can practice by generating orders using the Practice button.
- *  Once the game is started, the orders are generated automatically.
+/**
+ * The FastFood game involves customers who generate orders, and the player
+ * who has to fulfill the orders by assembling the right collection of food items.
+ * The goal of the game is to make as much money as possible before
+ * the player gets too far behind the customers and is forced to give up.
+ * <p>
+ * The game presents the player with a queue of orders in a fast food outlet.
+ * The player has to fullfill the customer orders by adding the correct items to
+ * the order at the head of the queue.
+ * When the order is ready, the player can deliver the order, which will
+ * take it off the queue, and will add the price of the order to the balance.
+ * Whenever the player adds an item to the order that doesn't belong in the
+ * order, the price of the item is subtracted from the balance.
+ * The player can practice by generating orders using the Practice button.
+ * Once the game is started, the orders are generated automatically.
  */
-public class FastFood{
+public class FastFood {
 
     private Queue<Order> orders;
     private double balance;
 
 
-    public FastFood() {
-        orders = new ArrayDeque<Order>();
+    private FastFood() {
+        orders = new ArrayDeque<>();
 
         /*# YOUR CODE HERE */
 
-        UI.addButton("Practice Order", () -> {generateOrder(); drawOrders();});
-        UI.addButton("Add Fish",       () -> {addItem("Fish"); drawOrders();});
-        UI.addButton("Add Chips",      () -> {addItem("Chips"); drawOrders();});
-        UI.addButton("Add Burger",     () -> {addItem("Burger"); drawOrders();});
-        UI.addButton("Deliver Order",  () -> {deliverOrder(); drawOrders();});
-        UI.addButton("Start Game",     () -> {startGame(); drawOrders();});
+        UI.addButton("Practice Order", () -> {
+            generateOrder();
+            drawOrders();
+        });
+        UI.addButton("Add Fish", () -> {
+            addItem("Fish");
+            drawOrders();
+        });
+        UI.addButton("Add Chips", () -> {
+            addItem("Chips");
+            drawOrders();
+        });
+        UI.addButton("Add Burger", () -> {
+            addItem("Burger");
+            drawOrders();
+        });
+        UI.addButton("Deliver Order", () -> {
+            deliverOrder();
+            drawOrders();
+        });
+        UI.addButton("Start Game", () -> {
+            startGame();
+            drawOrders();
+        });
 
         drawOrders();
         this.run();
 
     }
 
-    /** Creates a new order and puts it on the queue to be processed */
-    private void generateOrder() {orders.add(new Order());}
-
-    /** As long as there is an order in the queue, adds the specified
-     *  item to the order at the head of the queue,
-     *  If adding the item fails (i.e., it isn't one of the items
-     *  that are wanted by the order) then the price
-     *  of the item is deducted from the current balance.
+    /**
+     * Creates a new order and puts it on the queue to be processed
      */
-    public void addItem(String item) {
-        while(orders.size()>0){
+    private void generateOrder() {
+        orders.add(new Order());
+    }
 
+    /**
+     * As long as there is an order in the queue, adds the specified
+     * item to the order at the head of the queue,
+     * If adding the item fails (i.e., it isn't one of the items
+     * that are wanted by the order) then the price
+     * of the item is deducted from the current balance.
+     */
+    private void addItem(String item) {
+        if (orders.size() > 0) {
+            if (orders.peek().addItemToOrder(item)) {
+                orders.peek().addItemToOrder(item);
+            }else {
+                balance-=orders.peek().getItemPrice(item);
+            }
         }
     }
 
-    /** As long as there is an order at the front of the queue and it is ready,
-     *  take the first order off the queue, compute the price of the order,
-     *  and update the total balance by adding the order price.
-     *  If there is not a ready order on the queue, it prints a warning message.
+    /**
+     * As long as there is an order at the front of the queue and it is ready,
+     * take the first order off the queue, compute the price of the order,
+     * and update the total balance by adding the order price.
+     * If there is not a ready order on the queue, it prints a warning message.
      */
-    public void deliverOrder() {
-        
+    private void deliverOrder() {
+        if(orders.peek().isReady()){
+            balance+=orders.peek().getPrice();
+            orders.remove();
+        }
     }
 
-    /** Draws the queue of orders on the Graphics pane.
-     *  Also draws the current balance in the top left corner
+    /**
+     * Draws the queue of orders on the Graphics pane.
+     * Also draws the current balance in the top left corner
      */
-    public void drawOrders() {
+    private void drawOrders() {
         UI.clearGraphics();
-
+        UI.drawString(""+balance,20,20);
+        for (int i = 0; i < orders.size(); i++) {
+            orders.peek().draw(60+(i*40));
+        }
     }
 
     // In the game version, the orders must be automatically generated.
@@ -96,7 +133,7 @@ public class FastFood{
     private boolean gameRunning = false;
     private long timeBetweenOrders = 5000;
 
-    private void startGame(){
+    private void startGame() {
         UI.clearGraphics();
         UI.clearText();
         orders.clear();
@@ -105,33 +142,33 @@ public class FastFood{
         gameRunning = true;
     }
 
-    public void run() {
+    private void run() {
         long timeBetweenSpeedups = 2000;
         long timeNextOrder = 0;
         long timeNextSpeedup = 0;
-        
+
         while (true) { // forever...
             UI.sleep(100); // Wait at least 100 milliseconds between actions.
             long now = System.currentTimeMillis();
-            
-            if (!gameRunning) 
+
+            if (!gameRunning)
                 continue;  // if gameRunning is false, then don't generate orders
-                
+
             // add another order, if the time has come
             if (now >= timeNextOrder) {
                 timeNextOrder = now + timeBetweenOrders;
                 generateOrder();
                 drawOrders();
             }
-            
+
             // speed up order generation, if the time has come
-            if (now >= timeNextSpeedup) {   
-                if (timeBetweenOrders> 200)    // as long as maximum speed has not been reached...
+            if (now >= timeNextSpeedup) {
+                if (timeBetweenOrders > 200)    // as long as maximum speed has not been reached...
                     timeBetweenOrders -= 100;  // reduce interval
-                    
+
                 timeNextSpeedup = now + timeBetweenSpeedups;
             }
-            
+
             if (orders.size() > 20) {
                 UI.println("Oh no! You have too many orders waiting! Game over...");
                 orders.clear();
@@ -141,5 +178,7 @@ public class FastFood{
         }
     }
 
-    public static void main(String args[]){new FastFood();}
+    public static void main(String args[]) {
+        new FastFood();
+    }
 }

@@ -11,6 +11,8 @@
     <modules>
         <module>Assignment 1</module>
         <module>Assignment 2</module>
+        <module>Assignment3</module>
+        <module>Assignment 3</module>
     </modules>
 
     <repositories>

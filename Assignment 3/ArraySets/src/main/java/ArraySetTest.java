@@ -8,29 +8,33 @@
  * ID:
  */
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Set;
 
 import static org.junit.Assert.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.JUnitCore;
 
-/** ArraySetTest
- *  A JUnit class for testing ArraySet with a set of tests.
+/**
+ * ArraySetTest
+ * A JUnit class for testing ArraySet with a set of tests.
  */
 
 public class ArraySetTest {
 
     private Set<String> set;
 
-    /** initialise set to be an empty set before each test is run */
+    /**
+     * initialise set to be an empty set before each test is run
+     */
     @Before
     public void initialiseEmptySet() {
         set = new ArraySet<String>();
     }
 
-    /** method to initialise the set with the n values "v1", "v2", ... */
+    /**
+     * method to initialise the set with the n values "v1", "v2", ...
+     */
     public void fillSet(int n) {
         for (int i = 1; i <= n; i++) {
             set.add("v" + i);
@@ -66,7 +70,7 @@ public class ArraySetTest {
     // that this test case expects an IllegalArgumentException
     // The Unit test will fails if the given exception is not thrown.
     // Since JUnit 4.
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddingNull() {
         set.add(null);
     }
@@ -87,8 +91,8 @@ public class ArraySetTest {
     public void testContains() {
         fillSet(20);
         for (int i = 1; i <= 20; i++) {
-            String goodValue = "v"+i;
-            String badValue = "u"+i;
+            String goodValue = "v" + i;
+            String badValue = "u" + i;
             assertTrue("Set should contain item " + goodValue, set.contains(goodValue));
             assertFalse("Set should not contain item " + badValue, set.contains(badValue));
         }
@@ -125,12 +129,12 @@ public class ArraySetTest {
         fillSet(15);
 
         for (int i = 1; i <= 15; i++) {
-            String goodValue = "v"+i;
-            String badValue = "u"+i;
-            assertTrue(goodValue+" should be removed successfully.", set.remove(goodValue));
-            assertFalse("Set should no longer contain "+goodValue, set.contains(goodValue));
-            assertFalse(badValue+" should not be removed successfully.", set.remove(badValue));
-            assertEquals("Set should be one smaller after remove.", (15-i), set.size());
+            String goodValue = "v" + i;
+            String badValue = "u" + i;
+            assertTrue(goodValue + " should be removed successfully.", set.remove(goodValue));
+            assertFalse("Set should no longer contain " + goodValue, set.contains(goodValue));
+            assertFalse(badValue + " should not be removed successfully.", set.remove(badValue));
+            assertEquals("Set should be one smaller after remove.", (15 - i), set.size());
         }
         assertTrue("Set should be empty after removing all.", set.isEmpty());
         assertFalse("Set should not contain null after removing all.", set.contains(null));

@@ -1,17 +1,21 @@
+/*
 // This program is copyright VUW.
 // You are granted permission to use it to construct your answer to a COMP103 assignment.
 // You may not distribute it in any other way without permission.
 
+*/
 /* Code for COMP103, Assignment 3
  * Name:
  * Usercode:
  * ID:
- */
+ *//*
+
 
 import ecs100.*;
 import java.util.*;
 import java.io.*;
 
+*/
 /** SpellingChecker checks all the words in a file against a dictionary.
  *  The dictionary is read from the dictionary file into a set.
  *  When reading through the document with spelling errors, the program checks
@@ -25,7 +29,8 @@ import java.io.*;
  *
  *  Note that the dictionary and the file to check are assumed to be all
  *  lowercase, with all punctuation removed.
- */
+ *//*
+
 
 public class SpellingChecker{
 
@@ -86,3 +91,4 @@ public class SpellingChecker{
         catch(IOException e){UI.println("Fail: " + e);}
     }	
 }
+*/

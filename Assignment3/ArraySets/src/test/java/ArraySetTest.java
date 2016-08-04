@@ -29,13 +29,13 @@ public class ArraySetTest {
      */
     @Before
     public void initialiseEmptySet() {
-        set = new ArraySet<String>();
+        set = new ArraySet<>();
     }
 
     /**
      * method to initialise the set with the n values "v1", "v2", ...
      */
-    public void fillSet(int n) {
+    private void fillSet(int n) {
         for (int i = 1; i <= n; i++) {
             set.add("v" + i);
         }

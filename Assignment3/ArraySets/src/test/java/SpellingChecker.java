@@ -80,7 +80,7 @@ public class SpellingChecker{
         UI.printf("Average Checking: %.3f seconds\n", checking/iterAttemps/1000.0);
         UI.printf("Words missing from dictionary:%d\n",count/iterAttemps);
     }
-    static void read(Set<String> dictionary, boolean sorted) {
+    private static void read(Set<String> dictionary, boolean sorted) {
         //measure the set construction
         long start = System.currentTimeMillis();
         dictionary.addAll(sorted?sortedDictWords:unsortedDictWords);

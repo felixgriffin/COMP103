@@ -24,7 +24,8 @@
         <processorPath useClasspath="true" />
         <module name="0016" />
         <module name="2047" />
-        <module name="Assignment 3" />
+        <module name="2048" />
+        <module name="ArraySets" />
         <module name="FastFood" />
         <module name="Sokoban" />
         <module name="Spiral" />
@@ -33,10 +34,13 @@
     <bytecodeTargetLevel target="1.8">
       <module name="0016" target="1.8" />
       <module name="2047" target="1.8" />
+      <module name="2048" target="1.8" />
       <module name="ArraySets" target="1.8" />
       <module name="Assignment 1" target="1.8" />
       <module name="Assignment 2" target="1.8" />
       <module name="Assignment 3" target="1.8" />
+      <module name="Assignment1" target="1.8" />
+      <module name="Assignment2" target="1.8" />
       <module name="Assignment3" target="1.8" />
       <module name="COMP103" target="1.8" />
       <module name="FastFood" target="1.8" />

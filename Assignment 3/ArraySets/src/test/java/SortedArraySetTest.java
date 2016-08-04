@@ -1,15 +1,12 @@
-/*
 // This program is copyright VUW.
 // You are granted permission to use it to construct your answer to a COMP103 assignment.
 // You may not distribute it in any other way without permission.
 
-*/
 /* Code for COMP 103, Assignment 3
  * Name:
  * Usercode:
  * ID:
- *//*
-
+ */
 
 import java.util.Set;
 import java.util.List;
@@ -21,28 +18,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 
-*/
 /** SortedArraySetTest
  *  A JUnit class for testing SortedArraySet with a set of tests.
- *//*
-
+ */
 
 public class SortedArraySetTest {
 
     private List<String> items = Arrays.asList("v13","v18","v09","v12","v16","v06","v10","v02","v04","v08","v17","v07","v01","v03","v14","v20","v15","v11","v05","v19");
     private Set<String> set;
 
-    */
-/** initialise set to be an empty set before each test is run *//*
-
+    /** initialise set to be an empty set before each test is run */
     @Before
     public void initialiseEmptySet() {
         set = new SortedArraySet<String>();
     }
 
-    */
-/** method to initialise the set *//*
-
+    /** method to initialise the set */
     public void fillSet() {
         List<String> its = Arrays.asList("v14","v07","v05","v10","v20","v16","v01","v03","v13","v18","v06","v17","v04","v19","v12","v09","v08","v11","v02","v15");
 
@@ -152,4 +143,3 @@ public class SortedArraySetTest {
     }
 }
 
-*/

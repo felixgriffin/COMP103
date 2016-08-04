@@ -111,7 +111,7 @@ public class ArraySet<E> extends AbstractSet<E> {
      *
      * @return the index of the item, or -1 if not present
      */
-    public int indexOf(Object item) {
+    private int indexOf(Object item) {
         if (item == null) {
             return -1;
         }

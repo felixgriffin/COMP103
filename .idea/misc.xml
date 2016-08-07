@@ -50,6 +50,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/Assignment3/pom.xml" />
+        <option value="$PROJECT_DIR$/Assignment4/pom.xml" />
       </set>
     </option>
   </component>

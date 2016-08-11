@@ -9,7 +9,10 @@
  */
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class Images implements a list of images.
@@ -27,9 +30,9 @@ import java.util.Iterator;
  * @author Thomas Kuehne
  */
 
-public class Images implements Iterable<String> {
+class Images implements Iterable<String> {
     private ImageNode head;     // the first image node
-    private ImageNode cursor;   // the current point for insertion, removal, etc. 
+    private ImageNode cursor;   // the current point for insertion, removal, etc.
 
     /**
      * Creates an empty list of images.
@@ -114,7 +117,7 @@ public class Images implements Iterable<String> {
             return;
         }
 
-        // setup an initial attempt to a reference to the node before the current cursor 
+        // setup an initial attempt to a reference to the node before the current cursor
         ImageNode previous = head;
 
         // while the node before the cursor has not been found yet, keep advancing
@@ -181,71 +184,67 @@ public class Images implements Iterable<String> {
 
     /**
      * Removes an image at the cursor position
-     * <p>
      * For the core part of the assignment.
-     * <p>
      * HINT: Consider that the list may be empty.
-     * <p>
      * HINT: Handle removing at the very start of the list in this method and
      * delegate the removal of other nodes by using method 'removeNodeUsingPrevious' from class ImageNode.
-     * <p>
      * HINT: Make sure that the cursor position after the removal is correct.
      */
 
     void remove() {
         ImageNode temp = cursor;
         if (head != null) {
-            if (temp == head) {
-                removeAll();
-            } else {
-                moveCursorLeft();
-                temp.removeNodeUsingPrevious(cursor);
-            }
+            moveCursorLeft();
+            temp.removeNodeUsingPrevious(cursor);
+            moveCursorRight();
         }
     }
 
     /**
      * Reverses the order of the image list so that the last node is now the first node, and
      * and the second-to-last node is the second node, and so on
-     * <p>
      * For the completion part of the assignment.
-     * <p>
      * HINT: Make sure there is something worth reversing first.
      * HINT: You will have to use temporary variables.
      * HINT: Don't forget to update the head of the list.
      */
     void reverseImages() {
-//        if(head.count()>=2){
-//        }
+        if (head.count() >= 2) {
+            ArrayList<ImageNode> temp = new ArrayList<>();
+            while (cursor != null) {
+                temp.add(cursor);
+                moveCursorRight();
+            }
+            Collections.reverse(temp);
+            for (int i = 1; i < temp.size(); i++) {
+                temp.get(i - 1).setNext(temp.get(i));
+            }
+            head = null;
+            head = temp.get(0);
+            cursor = head;
+        }
     }
 
     /**
      * @return an iterator over the items in this list of images.
-     * <p>
      * For the completion part of the assignment.
      */
     public Iterator<String> iterator() {
-        /*# YOUR CODE HERE */
-
-        return null; // to make this class compile. PLEASE FIX THIS LINE
+        return new ImagesIterator(this);
     }
 
     /**
      * Support for iterating over all images in an "Images" collection.
-     * <p>
      * For the completion part of the assignment.
      */
     private class ImagesIterator implements Iterator<String> {
-
-        // needs fields, constructor, hasNext(), next(), and remove()
-
-        // fields
-        /*# YOUR CODE HERE */
+        Images images;
+        ImageNode current;
 
         // constructor
         private ImagesIterator(Images images) {
-            /*# YOUR CODE HERE */
-
+            this.images = images;
+            this.current = head;
         }
 
         /**
@@ -254,9 +253,7 @@ public class Images implements Iterable<String> {
          * For the completion part of the assignment.
          */
         public boolean hasNext() {
-            /*# YOUR CODE HERE */
-
-            return false; // to make this class compile. PLEASE FIX THIS LINE
+            return current!=null;
         }
 
         /**
@@ -268,17 +265,11 @@ public class Images implements Iterable<String> {
          * @return next item in the set
          */
         public String next() {
-            /*# YOUR CODE HERE */
-
-            return null; // to make this class compile. PLEASE FIX THIS LINE
+            if(hasNext()){
+                return current.getNext().getFileName();
+            }
+            throw new NoSuchElementException();
         }
-
-        /**
-         * Removes the last item returned by the iterator from the set.
-         * Not supported by this iterator.
-         */
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
+        //do not need remove as java is good
     }
 }

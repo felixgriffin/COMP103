@@ -8,7 +8,8 @@
  * ID: 300383795
  */
 
-import java.util.*;
+import java.awt.*;
+import java.util.Iterator;
 
 /**
  * Class Images implements a list of images.
@@ -26,7 +27,7 @@ import java.util.*;
  * @author Thomas Kuehne
  */
 
-class Images implements Iterable<String> {
+public class Images implements Iterable<String> {
     private ImageNode head;     // the first image node
     private ImageNode cursor;   // the current point for insertion, removal, etc. 
 
@@ -95,8 +96,9 @@ class Images implements Iterable<String> {
      */
     void moveCursorRight() {
         // is it impossible for the cursor to move right?
-        if (cursor == null || cursor.getNext() == null)
+        if (cursor == null || cursor.getNext() == null) {
             return;
+        }
         // advance the cursor
         cursor = cursor.getNext();
     }
@@ -108,8 +110,9 @@ class Images implements Iterable<String> {
      */
     void moveCursorLeft() {
         // is it impossible for the cursor to move left?
-        if (head == null || cursor == head)
+        if (head == null || cursor == head) {
             return;
+        }
 
         // setup an initial attempt to a reference to the node before the current cursor 
         ImageNode previous = head;
@@ -145,15 +148,14 @@ class Images implements Iterable<String> {
      */
     void addImageAfter(String imageFileName) {
         if (head == null) {
-           head = cursor =  new ImageNode(imageFileName, head);
+            head = cursor = new ImageNode(imageFileName, null);
         } else {
-            cursor.setNext(cursor=new ImageNode(imageFileName,null));
+            cursor.setNext(cursor = new ImageNode(imageFileName, null));
         }
     }
 
     /**
      * Adds an image before the cursor position
-     * <p>
      * For the completion part of the assignment.
      *
      * @param imageFileName the file name of the image to be added
@@ -166,7 +168,6 @@ class Images implements Iterable<String> {
     void addImageBefore(String imageFileName) {
         moveCursorLeft();
         addImageAfter(imageFileName);
-
     }
 
     /**
@@ -192,8 +193,15 @@ class Images implements Iterable<String> {
      */
 
     void remove() {
-        /*# YOUR CODE HERE */
-
+        ImageNode temp = cursor;
+        if (head != null) {
+            if (temp == head) {
+                removeAll();
+            } else {
+                moveCursorLeft();
+                temp.removeNodeUsingPrevious(cursor);
+            }
+        }
     }
 
     /**
@@ -207,8 +215,8 @@ class Images implements Iterable<String> {
      * HINT: Don't forget to update the head of the list.
      */
     void reverseImages() {
-        /*# YOUR CODE HERE */
-
+//        if(head.count()>=2){
+//        }
     }
 
     /**

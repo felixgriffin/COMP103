@@ -129,7 +129,7 @@ class ImageNode {
      * @param previous the node preceding this node
      * 
      */
-    public void removeNodeUsingPrevious(ImageNode previous) {
+    void removeNodeUsingPrevious(ImageNode previous) {
         previous.setNext(this.getNext());
     }     
 }

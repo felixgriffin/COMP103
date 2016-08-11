@@ -26,7 +26,7 @@ import java.util.*;
  * @author Thomas Kuehne
  */
 
-public class Images implements Iterable<String> {
+class Images implements Iterable<String> {
     private ImageNode head;     // the first image node
     private ImageNode cursor;   // the current point for insertion, removal, etc. 
 
@@ -74,8 +74,7 @@ public class Images implements Iterable<String> {
      * For the core part of the assignment.
      */
     void moveCursorToStart() {
-        /*# YOUR CODE HERE */
-
+        cursor = head;
     }
 
     /**
@@ -86,8 +85,9 @@ public class Images implements Iterable<String> {
      * HINT: Consider the list could be empty.
      */
     void moveCursorToEnd() {
-        /*# YOUR CODE HERE */
-
+        while (cursor.getNext() != null) {
+            cursor = cursor.getNext();
+        }
     }
 
     /**
@@ -97,7 +97,6 @@ public class Images implements Iterable<String> {
         // is it impossible for the cursor to move right?
         if (cursor == null || cursor.getNext() == null)
             return;
-
         // advance the cursor
         cursor = cursor.getNext();
     }
@@ -129,26 +128,27 @@ public class Images implements Iterable<String> {
      * @return number of images
      */
     int count() {
-        if (head == null)          // is the list empty?
+        if (head == null) {    // is the list empty?
             return 0;                // yes -> return zero
-
+        }
         return head.count();   // no -> delegate to linked structure
     }
 
     /**
      * Adds an image after the cursor position
-     * <p>
      * For the core part of the assignment.
      *
      * @param imageFileName the file name of the image to be added
-     *                      <p>
      *                      HINT: Consider that the current collection may be empty.
      *                      HINT: Create a new image node here and and delegate further work to method 'insertAfter' of class ImageNode.
      *                      HINT: Pay attention to the cursor position after the image has been added.
      */
     void addImageAfter(String imageFileName) {
-        /*# YOUR CODE HERE */
-
+        if (head == null) {
+           head = cursor =  new ImageNode(imageFileName, head);
+        } else {
+            cursor.setNext(cursor=new ImageNode(imageFileName,null));
+        }
     }
 
     /**
@@ -157,7 +157,6 @@ public class Images implements Iterable<String> {
      * For the completion part of the assignment.
      *
      * @param imageFileName the file name of the image to be added
-     *                      <p>
      *                      HINT: Create a new image node here and then
      *                      1. Consider that the current collection may be empty.
      *                      2. Consider that the head may need to be adjusted.
@@ -165,7 +164,8 @@ public class Images implements Iterable<String> {
      *                      HINT: Pay attention to the cursor position after the image has been added.
      */
     void addImageBefore(String imageFileName) {
-        /*# YOUR CODE HERE */
+        moveCursorLeft();
+        addImageAfter(imageFileName);
 
     }
 
@@ -175,8 +175,7 @@ public class Images implements Iterable<String> {
      * For the core part of the assignment.
      */
     void removeAll() {
-        cursor.equals(null);
-        head.equals(null);
+        head = cursor = null;
     }
 
     /**

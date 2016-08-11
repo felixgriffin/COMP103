@@ -52,7 +52,7 @@ class ImageNode {
     /**
      * Changes the successor of this node.
      */
-    private void setNext(ImageNode newNext) {
+    public void setNext(ImageNode newNext) {
         this.next = newNext;
     }
 
@@ -65,8 +65,13 @@ class ImageNode {
      * 
      */
     int count() {
-        /*# YOUR CODE HERE */
-        return 2;
+        int count=0;
+        ImageNode temp=this;
+        while(temp!=null){
+            count++;
+            temp=temp.getNext();
+        }
+        return count;
     }
 
     /**
@@ -75,7 +80,7 @@ class ImageNode {
      * @param newNode the node to be inserted
      * 
      */
-    public void insertAfter(ImageNode newNode) {
+    private void insertAfter(ImageNode newNode) {
         newNode.setNext(this.getNext());
         this.setNext(newNode);
     }
@@ -96,8 +101,7 @@ class ImageNode {
      *
      */
     public void insertBefore(ImageNode newNode, ImageNode cursor) {
-        /*# YOUR CODE HERE */
-
+        nodeBefore(cursor).insertAfter(newNode);
     } 
 
     /**
@@ -111,9 +115,12 @@ class ImageNode {
      * @param target the node whose predecessor is required 
      * @return the node before the provided node
      */
-    public ImageNode nodeBefore(ImageNode target) {
-        /*# YOUR CODE HERE */
-        return null;
+    private ImageNode nodeBefore(ImageNode target) {
+        ImageNode temp=this;
+        while(temp!=null&&temp.getNext()!=target){
+            temp=temp.getNext();
+        }
+        return temp;
     }
 
     /**

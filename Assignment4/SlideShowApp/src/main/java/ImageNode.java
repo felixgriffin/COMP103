@@ -3,9 +3,9 @@
 // You may not distribute it in any other way without permission.
 
 /* Code for COMP 103, Assignment 4
- * Name:
- * Usercode:
- * ID:
+ * Name: Shaun McLaren
+ * Usercode: sinclashau
+ * ID: 300383795
  */
 
 /**

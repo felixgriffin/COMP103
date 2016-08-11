@@ -24,19 +24,17 @@ public class SlideshowApp
 {
     // boolean field that should be toggled depending on whether 
     // you attempted the completion stage or not.
-    public final static boolean completion = false;
+    final static boolean completion = false;
 
-    private Images images;             // A shared reference to a linked list of images. 
-
-    private static SlideshowCreator creator;  // responsible for creating slideshows.
-    private static SlideshowViewer viewer;    // responsible for viewing slideshows.
+    private static SlideshowCreator creator;  // responsible for creating slideShows.
+    private static SlideshowViewer viewer;    // responsible for viewing slideShows.
 
     private boolean viewerActive;      // flag signalling whether the creator or the viewer is active
 
     /**
      * Returns true, if there is an active slideshow
      */
-    public static boolean slideShowIsRunning() {
+    static boolean slideShowIsRunning() {
         return viewer.slideShowIsRunning();
     }
 
@@ -44,8 +42,8 @@ public class SlideshowApp
      * Constructor for objects of class SlideshowApp
      * One collection of images is shared between creator and viewer. 
      */
-    public SlideshowApp() {
-        images = new Images();
+    private SlideshowApp() {
+        Images images = new Images();
         creator = new SlideshowCreator(images);
         viewer = new SlideshowViewer(images);
     }
@@ -53,7 +51,7 @@ public class SlideshowApp
     /**
      * Initialises the UI window, and sets up the buttons. 
      */
-    public void initialise() {
+    private void initialise() {
         UI.initialise();
 
         UI.addButton("CREATOR mode", () -> {if (!slideShowIsRunning()) this.showCreatorUI();});
@@ -81,7 +79,7 @@ public class SlideshowApp
      * 
      * Note the switching of the keylistener
      */
-    public void showCreatorUI() {
+    private void showCreatorUI() {
         viewerActive=false;
 
         creator.statusScreen();
@@ -93,7 +91,7 @@ public class SlideshowApp
      *
      * Note the switching of the keylistener
      */
-    public void showViewerUI() {
+    private void showViewerUI() {
         viewerActive=true;
 
         viewer.statusScreen();

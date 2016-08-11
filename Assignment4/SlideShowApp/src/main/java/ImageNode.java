@@ -16,7 +16,7 @@
  * 
  * @author Thomas Kuehne 
  */
-public class ImageNode {
+class ImageNode {
 
     // A string that contains the full file name of an image file.
     private String imageFileName;
@@ -30,8 +30,7 @@ public class ImageNode {
      * @param imageFileNameStr the file name of the image to be represented by this node
      * @param nextNode the reference to the next node in the list
      */
-    public ImageNode(String imageFileNameStr, ImageNode nextNode)
-    {
+    public ImageNode(String imageFileNameStr, ImageNode nextNode){
         this.imageFileName = imageFileNameStr;
         this.next = nextNode;
     }
@@ -39,21 +38,21 @@ public class ImageNode {
     /**
      * Returns the filename of the image. 
      */
-    public String getFileName() {
+    String getFileName() {
         return imageFileName;
     }
 
     /** 
      * Returns the successor of this node.
      */
-    public ImageNode getNext() {
+    ImageNode getNext() {
         return next;
     }
 
     /**
      * Changes the successor of this node.
      */
-    public void setNext(ImageNode newNext) {
+    private void setNext(ImageNode newNext) {
         this.next = newNext;
     }
 
@@ -65,7 +64,7 @@ public class ImageNode {
      * @return the number of nodes in the list starting at this node.
      * 
      */
-    public int count() {
+    int count() {
         /*# YOUR CODE HERE */
         return 2;
     }

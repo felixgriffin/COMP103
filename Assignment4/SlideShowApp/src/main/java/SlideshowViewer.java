@@ -19,7 +19,7 @@ import ecs100.*;
  * 
  * @author Thomas Kuehne
  */
-public class SlideshowViewer {
+class SlideshowViewer {
 
     // This flag identifies whether there is a slideshow running. 
     // During such time, the user can neither use the buttons nor use the cursor keys to navigate.
@@ -32,8 +32,8 @@ public class SlideshowViewer {
      * Creates the slideshow viewer object.
      * 
      * @param images the image collection shared between creator and viewer
-     */  
-    public SlideshowViewer(Images images) {
+     */
+    SlideshowViewer(Images images) {
         this.slideShowIsActive = false;
         this.images = images;
     }
@@ -41,14 +41,14 @@ public class SlideshowViewer {
     /**
      * Returns true, if there is an active slideshow
      */
-    public boolean slideShowIsRunning() {
+    boolean slideShowIsRunning() {
         return slideShowIsActive;
     }
 
     /**
      * Interprets key presses.
-     */  
-    public void doKey(String key) {
+     */
+    void doKey(String key) {
         // ignore key presses if a slide show is running
         if (slideShowIsRunning())  
             return;
@@ -60,7 +60,7 @@ public class SlideshowViewer {
     /**
      * Changes the graphics display in the UI to show the viewer. 
      */
-    public void statusScreen() {
+    void statusScreen() {
         // printer user instructions
         UI.clearText();
         UI.println("Viewer mode\n");
@@ -74,7 +74,7 @@ public class SlideshowViewer {
     /**
      * Advances to the next image.
      */
-    public void nextImage() {
+    void nextImage() {
         images.moveCursorRight();  
         this.redraw();
     }
@@ -82,7 +82,7 @@ public class SlideshowViewer {
     /**
      * Moves to the previous image.
      */
-    public void previousImage() {
+    void previousImage() {
         images.moveCursorLeft(); 
         this.redraw();
     }
@@ -92,7 +92,7 @@ public class SlideshowViewer {
      * 
      * Makes all input handlers ignore all input. 
      */
-    public void slideshow() {
+    void slideshow() {
 
         // set up slide show screen
         UI.clearText();

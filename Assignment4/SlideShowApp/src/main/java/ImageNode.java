@@ -30,7 +30,7 @@ class ImageNode {
      * @param imageFileNameStr the file name of the image to be represented by this node
      * @param nextNode the reference to the next node in the list
      */
-    public ImageNode(String imageFileNameStr, ImageNode nextNode){
+    ImageNode(String imageFileNameStr, ImageNode nextNode){
         this.imageFileName = imageFileNameStr;
         this.next = nextNode;
     }
@@ -52,7 +52,7 @@ class ImageNode {
     /**
      * Changes the successor of this node.
      */
-    public void setNext(ImageNode newNext) {
+    void setNext(ImageNode newNext) {
         this.next = newNext;
     }
 
@@ -115,7 +115,7 @@ class ImageNode {
      * @param target the node whose predecessor is required 
      * @return the node before the provided node
      */
-    private ImageNode nodeBefore(ImageNode target) {
+    ImageNode nodeBefore(ImageNode target) {
         ImageNode temp=this;
         while(temp!=null&&temp.getNext()!=target){
             temp=temp.getNext();

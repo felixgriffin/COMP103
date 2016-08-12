@@ -152,7 +152,7 @@ class Images implements Iterable<String> {
         if (head == null) {
             head = cursor = new ImageNode(imageFileName, null);
         } else {
-            cursor.setNext(cursor = new ImageNode(imageFileName, null));
+            cursor.setNext(cursor = new ImageNode(imageFileName, cursor.getNext()));
         }
     }
 
@@ -168,8 +168,11 @@ class Images implements Iterable<String> {
      *                      HINT: Pay attention to the cursor position after the image has been added.
      */
     void addImageBefore(String imageFileName) {
-        if (cursor != head) {
+        if (head!=null) {
             moveCursorLeft();
+            cursor.setNext(cursor = new ImageNode(imageFileName, cursor.getNext()));
+            moveCursorRight();
+        }else{
             addImageAfter(imageFileName);
         }
     }

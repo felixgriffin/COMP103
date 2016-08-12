@@ -29,8 +29,6 @@ public class SlideshowApp
     private static SlideshowCreator creator;  // responsible for creating slideShows.
     private static SlideshowViewer viewer;    // responsible for viewing slideShows.
 
-    private boolean viewerActive;      // flag signalling whether the creator or the viewer is active
-
     /**
      * Returns true, if there is an active slideshow
      */
@@ -80,8 +78,6 @@ public class SlideshowApp
      * Note the switching of the keylistener
      */
     private void showCreatorUI() {
-        viewerActive=false;
-
         creator.statusScreen();
         UI.setKeyListener(creator::doKey);
     }
@@ -92,8 +88,6 @@ public class SlideshowApp
      * Note the switching of the keylistener
      */
     private void showViewerUI() {
-        viewerActive=true;
-
         viewer.statusScreen();
         UI.setKeyListener(viewer::doKey);
     }

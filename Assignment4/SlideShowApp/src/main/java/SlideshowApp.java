@@ -24,7 +24,7 @@ public class SlideshowApp
 {
     // boolean field that should be toggled depending on whether 
     // you attempted the completion stage or not.
-    final static boolean completion = false;
+    final static boolean completion = true;
 
     private static SlideshowCreator creator;  // responsible for creating slideShows.
     private static SlideshowViewer viewer;    // responsible for viewing slideShows.

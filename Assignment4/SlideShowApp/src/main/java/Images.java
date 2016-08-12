@@ -8,7 +8,6 @@
  * ID: 300383795
  */
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -134,10 +133,10 @@ class Images implements Iterable<String> {
      * @return number of images
      */
     int count() {
-        if (head == null) {    // is the list empty?
-            return 0;                // yes -> return zero
+        if (head == null) {
+            return 0;
         }
-        return head.count();   // no -> delegate to linked structure
+        return head.count();
     }
 
     /**
@@ -169,8 +168,10 @@ class Images implements Iterable<String> {
      *                      HINT: Pay attention to the cursor position after the image has been added.
      */
     void addImageBefore(String imageFileName) {
-        moveCursorLeft();
-        addImageAfter(imageFileName);
+        if (cursor != head) {
+            moveCursorLeft();
+            addImageAfter(imageFileName);
+        }
     }
 
     /**
@@ -253,7 +254,7 @@ class Images implements Iterable<String> {
          * For the completion part of the assignment.
          */
         public boolean hasNext() {
-            return current!=null;
+            return current != null;
         }
 
         /**
@@ -265,10 +266,13 @@ class Images implements Iterable<String> {
          * @return next item in the set
          */
         public String next() {
-            if(hasNext()){
-                return current.getNext().getFileName();
+            if (hasNext()) {
+                String temp =current.getFileName();
+                current=current.getNext();
+                return temp;
+            }else{
+                throw new NoSuchElementException();
             }
-            throw new NoSuchElementException();
         }
         //do not need remove as java is good
     }

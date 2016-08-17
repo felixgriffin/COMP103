@@ -27,6 +27,9 @@
         <module name="2048" />
         <module name="ArraySets" />
         <module name="FastFood" />
+        <module name="MazeSearch" />
+        <module name="Mondrian" />
+        <module name="Permutations" />
         <module name="SlideShowApp" />
         <module name="Sokoban" />
         <module name="Spiral" />
@@ -44,8 +47,12 @@
       <module name="Assignment2" target="1.8" />
       <module name="Assignment3" target="1.8" />
       <module name="Assignment4" target="1.8" />
+      <module name="Assignment5" target="1.8" />
       <module name="COMP103" target="1.8" />
       <module name="FastFood" target="1.8" />
+      <module name="MazeSearch" target="1.8" />
+      <module name="Mondrian" target="1.8" />
+      <module name="Permutations" target="1.8" />
       <module name="SlideShowApp" target="1.8" />
       <module name="Sokoban" target="1.8" />
       <module name="Spiral" target="1.8" />

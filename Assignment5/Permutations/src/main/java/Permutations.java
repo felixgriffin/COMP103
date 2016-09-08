@@ -9,41 +9,51 @@
  */
 
 import ecs100.*;
+
 import java.util.*;
 
-/** 
- *  Prints out all permuations of a string
- *  The static method permute constructs all the permutations.
- *  The main method gets the string, calls recPermute, and prints the result.
+/**
+ * Prints out all permutations of a string
+ * The static method permute constructs all the permutations.
+ * The main method gets the string, calls recPermute, and prints the result.
  */
 public class Permutations {
     /**
-     * @return a List of all the permutations of a String. 
+     * @return a List of all the permutations of a String.
      */
-    public static List <String> recPermute(String string) {
-        /*# YOUR CODE HERE */
+    private static List<String> recPermute(String string) {
+        ArrayList<String> wordList = new ArrayList<>();
+        addList(string, "", wordList);
+        return wordList;
+    }
+
+    private static void addList(String string, String prefix, List<String> wordList) {
+        if (string.isEmpty()) {
+            wordList.add(prefix);
+            return;
+        }
+        for (int i = 0; i < string.length(); i++) {
+            addList(string.substring(0, i) + string.substring(i + 1),prefix + string.charAt(i), wordList);
+        }
     }
 
     // Main
-    public static void main(String[] arguments){
+    public static void main(String[] arguments) {
         UI.initialise();
-        UI.setWindowSize(500,400);
+        UI.setWindowSize(500, 400);
         UI.setDivider(1);
         String string = "";
-
-        while (! string.equals("#")) {
+        while (!string.equals("#")) {
             string = UI.askString("Enter string to permute - # to exit: ");
             if (string.length() < 11) {
 
                 List<String> permutations = recPermute(string);
 
-                for (String p : permutations)
-                    UI.println(p);
+                permutations.forEach(UI::println);
 
                 UI.println("---------");
-            }
-            else UI.println("Give a smaller string.");
+            } else UI.println("Give a smaller string.");
         }
         UI.quit();
-    }    
+    }
 }

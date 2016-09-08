@@ -8,22 +8,22 @@
  * ID:
  */
 
-public class Cell {
-    public final int x;
-    public final int y;
+class Cell {
+    final int x;
+    final int y;
 
     private boolean visited = false;
 
-    public Cell(int x, int y) {
+    Cell(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public void setVisited(boolean visited) {
+    void setVisited(boolean visited) {
         this.visited = visited;
     }
 
-    public boolean isVisited() {
+    boolean isVisited() {
         return visited;
     }
 

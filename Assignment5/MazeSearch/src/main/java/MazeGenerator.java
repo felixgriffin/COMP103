@@ -10,13 +10,13 @@
 
 import java.util.*;
 
-public class MazeGenerator {
+class MazeGenerator {
 
     private enum Direction {
         NORTH,
         SOUTH,
         EAST,
-        WEST;
+        WEST
     }
 
     private static final Random RANDOM = new Random();
@@ -24,7 +24,7 @@ public class MazeGenerator {
     private final int size;
     private final Cell[][] maze;
 
-    public MazeGenerator(int size) {
+    MazeGenerator(int size) {
         if (size <= 0 ) size = 1;
         this.size = size;
         this.maze = new Cell[size][size];
@@ -36,23 +36,23 @@ public class MazeGenerator {
         }
     }
 
-    public void generate(Map<Cell, Set<Cell>> nodes) {
-        carvePassagesFrom(maze, maze[0][0], nodes);
+    void generate(Map<Cell, Set<Cell>> nodes) {
+        carvePassagesFrom(maze[0][0], nodes);
 
         for (Cell cell : nodes.keySet()) {
             cell.setVisited(false);
         }
     }
 
-    public Cell getEntrance() {
+    Cell getEntrance() {
         return maze[0][0];
     }
 
-    public Cell getExit() {
+    Cell getExit() {
         return maze[size - 1][size - 1];
     }
 
-    private void carvePassagesFrom(Cell[][] maze, Cell cell, Map<Cell, Set<Cell>> neighbours) {
+    private void carvePassagesFrom(Cell cell, Map<Cell, Set<Cell>> neighbours) {
         cell.setVisited(true);
 
         for (Direction d : getDirectionsShuffled()) {
@@ -61,7 +61,7 @@ public class MazeGenerator {
             if (neighbour != null) {
                 carve(cell, neighbour, neighbours);
                 carve(neighbour, cell, neighbours);
-                carvePassagesFrom(maze, neighbour, neighbours);
+                carvePassagesFrom(neighbour, neighbours);
             }
         }
     }
@@ -70,7 +70,7 @@ public class MazeGenerator {
         Set<Cell> n = neighbours.get(cell);
 
         if (n == null) {
-            n = new HashSet<Cell>(5);
+            n = new HashSet<>(5);
             neighbours.put(cell, n);
         }
 

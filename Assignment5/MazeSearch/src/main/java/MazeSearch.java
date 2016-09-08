@@ -9,36 +9,33 @@
  */
 
 import ecs100.UI;
+
 import java.awt.*;
 import java.util.*;
 
 public class MazeSearch {
 
-    public final int CELL_SIZE;
-    public final int DELAY = 50;
+    private final int CELL_SIZE;
+    private final int DELAY = 50;
 
-    private final Map<Cell, Set<Cell>> neighbours = new HashMap<Cell, Set<Cell>>();
+    private final Map<Cell, Set<Cell>> neighbours = new HashMap<>();
     private final int size;
     private final Cell entrance, exit;
 
     /**
      * Creates a new maze using MazeGenerator and draws it .
      */
-    public MazeSearch(int size) {
+    private MazeSearch(int size) {
         this.size = size;
-
         if (size > 600 / 20) {
             CELL_SIZE = 600 / size;
         } else {
             CELL_SIZE = 20;
         }
-
         MazeGenerator generator = new MazeGenerator(size);
         generator.generate(neighbours);
-
         entrance = generator.getEntrance();
         exit = generator.getExit();
-
         draw();
     }
 
@@ -46,7 +43,7 @@ public class MazeSearch {
      * Draws the maze. This method should be called once after creating a new maze to draw it to
      * the UI class.
      */
-    public void draw() {
+    private void draw() {
         UI.clearGraphics();
 
         UI.setColor(Color.BLACK);
@@ -68,26 +65,24 @@ public class MazeSearch {
      * The redraw parameter is passed to the UI class, and if it is true this method will delay
      * returning for a while so that the user has time to see the change.
      */
-    public void drawCell(Cell cell, Color color, boolean redraw) {
+    private void drawCell(Cell cell, Color color, boolean redraw) {
         UI.setColor(color);
 
         int x = cell.x * CELL_SIZE;
         int y = cell.y * CELL_SIZE;
-        int w = CELL_SIZE;
-        int h = CELL_SIZE;
 
-        UI.fillRect(x + 1, y + 1, w - 2, h - 2);
+        UI.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
 
-        if (redraw) 
+        if (redraw)
             UI.sleep(DELAY);
     }
 
     /**
      * Draws a passage between two cells, filling both the cells and the space between them with the
-     * specified color. If the redraw parameter is true then this method will delay returning for a while 
+     * specified color. If the redraw parameter is true then this method will delay returning for a while
      * so that the user has time to see the change.
      */
-    public void drawPassage(Cell from, Cell to, Color color, boolean redraw) {
+    private void drawPassage(Cell from, Cell to, Color color, boolean redraw) {
         UI.setColor(color);
 
         int x1 = Math.min(from.x, to.x);
@@ -102,14 +97,14 @@ public class MazeSearch {
 
         UI.fillRect(x + 1, y + 1, w - 2, h - 2);
 
-        if (redraw) 
+        if (redraw)
             UI.sleep(DELAY);
     }
 
     /**
      * Run the exploration algorithm.
      */
-    public void run() {
+    private void run() {
         explore(entrance);
     }
 
@@ -117,11 +112,24 @@ public class MazeSearch {
      * Mark the current cell as visited, then recursively explore the cell's neighbouring cells.
      * Before exploring a cell draw a passage between the current cell and the cell you are about to
      * explore in yellow, and after exploring a cell draw the same passage in red.
-     * 
-     * @return true, if the exit has been found. Otherwise, returns false. 
+     *
+     * @return true, if the exit has been found. Otherwise, returns false.
      */
     private boolean explore(Cell cell) {
-        /*# YOUR CODE HERE */
+        cell.setVisited(true);
+        if (cell == exit) {
+            return true;
+        }
+        for (Cell current : neighbours.get(cell)) {
+            if (!current.isVisited()) {
+                drawPassage(cell, current, Color.yellow, true);
+                if (explore(current)) {
+                    drawPassage(cell, current, Color.green, true);
+                    return true;
+                }
+                drawPassage(cell, current, Color.red, true);
+            }
+        }
         return false;
     }
 
@@ -131,8 +139,7 @@ public class MazeSearch {
             if (size <= 70) {
                 MazeSearch ms = new MazeSearch(size);
                 ms.run();
-            }
-            else UI.println("Give a smaller number (max 70).");
+            } else UI.println("Give a smaller number (max 70).");
         }
     }
 }

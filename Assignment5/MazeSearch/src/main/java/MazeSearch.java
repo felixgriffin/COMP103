@@ -122,7 +122,7 @@ public class MazeSearch {
      */
     private boolean explore(Cell cell) {
         /*# YOUR CODE HERE */
-
+        return false;
     }
 
     public static void main(String[] args) {

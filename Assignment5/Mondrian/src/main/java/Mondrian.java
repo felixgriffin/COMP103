@@ -9,38 +9,38 @@
  */
 
 import ecs100.*;
+
 import java.awt.Color;
 import java.util.*;
 
-/** 
+/**
  * Mondrian Painting Generator
- * 
- * Generates Mondrian Paintings by recursivley dividing frames into
- * sub-frames and filling them with the typical Mondrian colours. 
- * 
+ * <p>
+ * Generates Mondrian Paintings by recursively dividing frames into
+ * sub-frames and filling them with the typical Mondrian colours.
  */
 public class Mondrian {
     // constants
 
-    static final int MondrianLineWidth = 12;    // width of the black separating lines
-    static final int MondrianSideMinimum = 48;  // minimum side below which no more splitting takes place
+    private static final int MondrianLineWidth = 12;    // width of the black separating lines
+    private static final int MondrianSideMinimum = 48;  // minimum side below which no more splitting takes place
 
     // Mondrian Colours
-    static final Color mondrianBlack   = new Color(25,23,26);
-    static final Color mondrianWhite   = new Color(229,227,228);
-    static final Color mondrianYellow  = new Color(255,221,10);
-    static final Color mondrianRed     = new Color(223, 12, 29);
-    static final Color mondrianBlue    = new Color(8,56,138);
+    private static final Color mondrianBlack = new Color(25, 23, 26);
+    private static final Color mondrianWhite = new Color(229, 227, 228);
+    private static final Color mondrianYellow = new Color(255, 221, 10);
+    private static final Color mondrianRed = new Color(223, 12, 29);
+    private static final Color mondrianBlue = new Color(8, 56, 138);
 
     // fields
-    static int level = 2;   // how deeply sub-Mondrians may be nested
-    static int chance = 45; // chance to create a sub-Mondrian in %
+    private static int level = 2;   // how deeply sub-Mondrians may be nested
+    private static int chance = 45; // chance to create a sub-Mondrian in %
 
-    static List<Color> mondrianColours = new ArrayList<Color>(); // collection to pick Mondrian colours from
+    private static List<Color> mondrianColours = new ArrayList<>(); // collection to pick Mondrian colours from
 
     // create UI and initialise Mondrian colours
-    public Mondrian() {
-        UI.setWindowSize(900,600);
+    private Mondrian() {
+        UI.setWindowSize(900, 600);
         UI.setDivider(0.1); // leave some space for printing level and chance values
 
         // create buttons
@@ -64,17 +64,17 @@ public class Mondrian {
     /**
      * Increases the level, up to a maximum of 9.
      */
-    public void increaseLevel() {
+    private void increaseLevel() {
         if (level < 9)
             level++;
 
-        drawMondrian(); 
+        drawMondrian();
     }
 
     /**
      * Decreases the level, up to a minimum of 0.
      */
-    public void decreaseLevel() {
+    private void decreaseLevel() {
         if (level > 0)
             level--;
 
@@ -85,7 +85,7 @@ public class Mondrian {
      * Increases the likelihood of creating a sub-Mondrian
      * up to a maximum of 1.
      */
-    public void increaseChance() {
+    private void increaseChance() {
         if (chance <= 95)
             chance += 5;    // increase by 5%
 
@@ -96,7 +96,7 @@ public class Mondrian {
      * Decreases the likelihood of creating a sub-Mondrian
      * up to a minimum of 0.
      */
-    public void decreaseChance() {
+    private void decreaseChance() {
         if (chance >= 5)
             chance -= 5;  // decrease by 5%
 
@@ -106,44 +106,79 @@ public class Mondrian {
     /**
      * @return a random Mondrian colour.
      */
-    Color randomMondrianColour() {
-        return mondrianColours.get((int)(mondrianColours.size()*Math.random()));
+    private Color randomMondrianColour() {
+        return mondrianColours.get((int) (mondrianColours.size() * Math.random()));
     }
 
-    /** 
+    /**
      * Draws a Mondrian within a frame specified by
      * the coordinates (x1, y1) and (x2, y2).
-     * 
+     * <p>
      * Always fills the specified frame with one (random) Mondrian colour.
-     * 
-     * Generates a split point within the frame to potentially 
-     * draw further sub-Mondrians. The split point is within a subframe that 
+     * <p>
+     * Generates a split point within the frame to potentially
+     * draw further sub-Mondrian. The split point is within a sub-frame that
      * is centred in the original frame with margins extending from 25%-75%
-     * of the original frame. 
-     * 
-     * Only draws the dividing black lines and further sub-Mondrians, if all of the following hold:
-     *    1. the currentLevel is not zero yet. 
-     *    2. the filled rectangle has no sides that are smaller than MondrianSideMinimum.
-     *    3. the chance of creating a sub-Mondrian is > 0%.
-     * 
+     * of the original frame.
+     * <p>
+     * Only draws the dividing black lines and further sub-Mondrian's, if all of the following hold:
+     * 1. the currentLevel is not zero yet.
+     * 2. the filled rectangle has no sides that are smaller than MondrianSideMinimum.
+     * 3. the chance of creating a sub-Mondrian is > 0%.
      */
-    public void drawMondrian(int x1, int y1, int x2, int y2, int currentLevel) {
-
+    private void drawMondrian(int x, int y, int x2, int y2, int currentLevel) {
         // draw the colour patch that may or may not become divided
         UI.setColor(randomMondrianColour());
-        UI.fillRect(x1+MondrianLineWidth/2, y1+MondrianLineWidth/2,    // do not paint over already painted lines
-                       x2-x1-MondrianLineWidth, y2-y1-MondrianLineWidth);
+        int xDiff = x2 - x;
+        int yDiff = y2 - y;
+        if(xDiff<MondrianSideMinimum||yDiff<MondrianSideMinimum){
+           return;
+        }
+        UI.fillRect(x + MondrianLineWidth / 2, y + MondrianLineWidth / 2,    // do not paint over already painted lines
+                xDiff, yDiff);
+        if (currentLevel == 0) {
+            return;
+        }
+        int xSplit = generateRandom(x+xDiff/4, x2-xDiff/4);
+        int ySplit = generateRandom(y+yDiff/4, y2-yDiff/4);
+        for (int i = 0; i < 4; i++) {
+            if (Math.random() * 100 <= chance) {
+                drawMondrian(x, y, xSplit, ySplit, currentLevel - 1);
+                break;
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            if (Math.random() * 100 <= chance) {
+                drawMondrian(xSplit, y, x2, ySplit, currentLevel - 1);
+                break;
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            if (Math.random() * 100 <= chance) {
+                drawMondrian(x, ySplit, xSplit, y2, currentLevel - 1);
+                break;
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            if (Math.random() * 100 <= chance) {
+                drawMondrian(xSplit, ySplit, x2, y2, currentLevel - 1);
+                break;
+            }
+        }
+        UI.setColor(mondrianBlack);
+        UI.drawLine(xSplit,y,xSplit,y2);
+        UI.drawLine(x,ySplit,x2,ySplit);
+    }
 
-        /*# YOUR CODE HERE */
-
+    private int generateRandom(int min, int max) {
+        return (int) (Math.random() * (max - min)) + min;
     }
 
     /**
      * Paints a Mondrian painting by drawing the outer frame and
      * calling drawMondrian.
-     * 
      */
-    public void drawMondrian() {
+    private void drawMondrian() {
         int margin = 20;    // margin to canvas edges
 
         // get canvas size
@@ -158,21 +193,19 @@ public class Mondrian {
         UI.print("Chance: " + chance + "%");
 
         // calculate coordinates of the first, largest Mondrian patch
-        int x1 = margin;
-        int y1 = margin;
         int x2 = margin + (width - margin);
-        int y2 = margin + (height - 2*margin);
+        int y2 = margin + (height - 2 * margin);
 
         // draw the first, largest Mondrian patch and all smaller ones
-        drawMondrian(x1, y1, x2, y2, level);
+        drawMondrian(margin, margin, x2, y2, level);
 
         // draw the frame last to cover unfinished areas
         UI.setColor(mondrianBlack);
-        UI.drawRect(x1, y1, x2-x1, y2-y1);
+        UI.drawRect(margin, margin, x2 - margin, y2 - margin);
     }
 
     // Create a new masterpiece
     public static void main(String[] arguments) {
         new Mondrian();
-    }   
+    }
 }

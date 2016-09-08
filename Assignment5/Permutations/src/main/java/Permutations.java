@@ -17,13 +17,11 @@ import java.util.*;
  *  The main method gets the string, calls recPermute, and prints the result.
  */
 public class Permutations {
-
     /**
      * @return a List of all the permutations of a String. 
      */
     public static List <String> recPermute(String string) {
         /*# YOUR CODE HERE */
-
     }
 
     // Main

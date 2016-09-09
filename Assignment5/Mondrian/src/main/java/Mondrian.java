@@ -131,34 +131,38 @@ public class Mondrian {
         UI.setColor(randomMondrianColour());
         int xDiff = x2 - x;
         int yDiff = y2 - y;
-        if(xDiff<MondrianSideMinimum||yDiff<MondrianSideMinimum){
-           return;
+        if (xDiff < MondrianSideMinimum || yDiff < MondrianSideMinimum) {
+            return;
         }
         UI.fillRect(x + MondrianLineWidth / 2, y + MondrianLineWidth / 2,    // do not paint over already painted lines
                 xDiff, yDiff);
         if (currentLevel == 0) {
             return;
         }
-        int xSplit = generateRandom(x+xDiff/4, x2-xDiff/4);
-        int ySplit = generateRandom(y+yDiff/4, y2-yDiff/4);
+        int xSplit = generateRandom(x + xDiff / 4, x2 - xDiff / 4);
+        int ySplit = generateRandom(y + yDiff / 4, y2 - yDiff / 4);
+        //top left
         for (int i = 0; i < 4; i++) {
             if (Math.random() * 100 <= chance) {
                 drawMondrian(x, y, xSplit, ySplit, currentLevel - 1);
                 break;
             }
         }
+        //top right
         for (int i = 0; i < 4; i++) {
             if (Math.random() * 100 <= chance) {
                 drawMondrian(xSplit, y, x2, ySplit, currentLevel - 1);
                 break;
             }
         }
+        //bottem left
         for (int i = 0; i < 4; i++) {
             if (Math.random() * 100 <= chance) {
                 drawMondrian(x, ySplit, xSplit, y2, currentLevel - 1);
                 break;
             }
         }
+        //bottem right
         for (int i = 0; i < 4; i++) {
             if (Math.random() * 100 <= chance) {
                 drawMondrian(xSplit, ySplit, x2, y2, currentLevel - 1);
@@ -166,8 +170,8 @@ public class Mondrian {
             }
         }
         UI.setColor(mondrianBlack);
-        UI.drawLine(xSplit,y,xSplit,y2);
-        UI.drawLine(x,ySplit,x2,ySplit);
+        UI.drawLine(xSplit, y, xSplit, y2);
+        UI.drawLine(x, ySplit, x2, ySplit);
     }
 
     private int generateRandom(int min, int max) {

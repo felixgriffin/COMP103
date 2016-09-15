@@ -91,17 +91,17 @@ class BSTNode<E extends Comparable<E>> {
         if (this.value.equals(item)) {
             return false;
         }
-        if (this.value.compareTo(item) > 0) {
-            if (getRight() == null) {
-                right = new BSTNode<>(item);
-            } else {
-                return right.add(item);
-            }
-        } else {
+        if (this.value.compareTo(item) < 0) {
             if (getLeft() == null) {
                 left = new BSTNode<>(item);
             } else {
                 return left.add(item);
+            }
+        } else {
+            if (getRight() == null) {
+                right = new BSTNode<>(item);
+            } else {
+                return right.add(item);
             }
         }
         return true;
@@ -119,12 +119,12 @@ class BSTNode<E extends Comparable<E>> {
      */
     int height() {
         int countL = 0, countR = 0;
+        if (left == null && right == null) return 0;
         if (left != null) {
             countL = left.height()+1;
-        } else if (right != null) {
+        }
+        if (right != null) {
             countR = right.height()+1;
-        } else {
-            return 0;
         }
         return Math.max(countL, countR);
     }
@@ -137,13 +137,13 @@ class BSTNode<E extends Comparable<E>> {
      * @returns the minimum of all branch lengths starting from the receiver.
      */
     int minDepth() {
-        int countL = 0, countR = 0;
+        int countL = Integer.MAX_VALUE, countR = Integer.MAX_VALUE;
+        if (getLeft() == null && getRight() == null) return 0;
         if (getLeft() != null) {
             countL = left.minDepth()+1;
-        } else if (getRight() != null) {
+        }
+        if (getRight() != null) {
             countR = right.minDepth()+1;
-        } else {
-            return 0;
         }
         return Math.min(countL, countR);
     }
@@ -177,9 +177,14 @@ class BSTNode<E extends Comparable<E>> {
      * the receiver itself needs to be removed. If you use a recursive approach, the
      * latter case is the base case.
      */
-    public BSTNode<E> remove(E item) {
-        /*# YOUR CODE HERE */
-
+    BSTNode<E> remove(E item) {
+        if (this.value.equals(item)) {
+            return replacementSubtreeFromChildren();
+        } else if (this.value.compareTo(item) < 0) {
+            left = left.remove(item);
+        } else {
+            right = right.remove(item);
+        }
         // there was no need to replace the receiver node
         return this;
     }
@@ -198,15 +203,18 @@ class BSTNode<E extends Comparable<E>> {
      * a) its (local) root replaced by the leftmost node in the right subtree, and
      * b) the leftmmost node in the right subtree removed.
      *
-     * @param left  - the left subtree from which to include items.
-     * @param right - the right subtree from which to include items.
      * @returns a reference to a subtree which contains all items from 'left' and 'right' combined.
      */
-    private BSTNode<E> replacementSubtreeFromChildren(BSTNode<E> left, BSTNode<E> right) {
-        /*# YOUR CODE HERE */
-
-        // not a simple case => return modified node
-        return this;
+    private BSTNode<E> replacementSubtreeFromChildren() {
+        if (left == null && right == null) return null;
+        if (left != null && right != null) {
+            E value = right.getLeftmostNode().value;
+            remove(value);
+            this.value = value;
+            return this;
+        }
+        if (left != null) return left;
+        return right;
     }
 
     /**

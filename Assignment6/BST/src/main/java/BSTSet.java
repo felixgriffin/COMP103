@@ -152,9 +152,10 @@ public class BSTSet<E extends Comparable<E>> extends AbstractSet<E> {
      * @returns true if the collection changes, and false if it did not change.
      */
     boolean remove(E item) {
-        /*# YOUR CODE HERE */
-
-        return false;
+        if (root == null || item == null || !contains(item)) return false;
+        root = root.remove(item);
+        count--;
+        return true;
     }
 
     /**

@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment4/Assignment4.iml" filepath="$PROJECT_DIR$/Assignment4/Assignment4.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment5/Assignment5.iml" filepath="$PROJECT_DIR$/Assignment5/Assignment5.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment6/Assignment6.iml" filepath="$PROJECT_DIR$/Assignment6/Assignment6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment7/Assignment7.iml" filepath="$PROJECT_DIR$/Assignment7/Assignment7.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment6/BST/BST.iml" filepath="$PROJECT_DIR$/Assignment6/BST/BST.iml" />
       <module fileurl="file://$PROJECT_DIR$/COMP103.iml" filepath="$PROJECT_DIR$/COMP103.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment2/FastFood/FastFood.iml" filepath="$PROJECT_DIR$/Assignment2/FastFood/FastFood.iml" />
@@ -20,6 +21,7 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment4/SlideShowApp/SlideShowApp.iml" filepath="$PROJECT_DIR$/Assignment4/SlideShowApp/SlideShowApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment2/Sokoban/Sokoban.iml" filepath="$PROJECT_DIR$/Assignment2/Sokoban/Sokoban.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment1/Spiral/Spiral.iml" filepath="$PROJECT_DIR$/Assignment1/Spiral/Spiral.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment7/TaxonomyApp/TaxonomyApp.iml" filepath="$PROJECT_DIR$/Assignment7/TaxonomyApp/TaxonomyApp.iml" />
     </modules>
   </component>
 </project>

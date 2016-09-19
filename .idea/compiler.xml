@@ -34,6 +34,7 @@
         <module name="SlideShowApp" />
         <module name="Sokoban" />
         <module name="Spiral" />
+        <module name="TaxonomyApp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
@@ -50,6 +51,7 @@
       <module name="Assignment4" target="1.8" />
       <module name="Assignment5" target="1.8" />
       <module name="Assignment6" target="1.8" />
+      <module name="Assignment7" target="1.8" />
       <module name="BST" target="1.8" />
       <module name="COMP103" target="1.8" />
       <module name="FastFood" target="1.8" />
@@ -59,6 +61,7 @@
       <module name="SlideShowApp" target="1.8" />
       <module name="Sokoban" target="1.8" />
       <module name="Spiral" target="1.8" />
+      <module name="TaxonomyApp" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

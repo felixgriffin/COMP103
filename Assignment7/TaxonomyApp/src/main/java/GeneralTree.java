@@ -122,8 +122,8 @@ class GeneralTree {
         GeneralTreeNode targetNode = this.findNode(targetName);
         GeneralTreeNode destinationNode = this.findNode(destinationName);
         if (targetNode == null || destinationNode == null || destinationNode.contains(targetNode)) return;
-        destinationNode.addChild(targetNode);
         targetNode.remove();
+        destinationNode.addChild(targetNode);
     }
 
     /**

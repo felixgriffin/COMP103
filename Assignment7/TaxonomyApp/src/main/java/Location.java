@@ -38,8 +38,8 @@ class Location {
         return y;
     }
 
-    public double distance(Location other) {
-        return Math.hypot((x - other.x), (y - other.y));
-    }
+//    public double distance(Location other) {
+//        return Math.hypot((x - other.x), (y - other.y));
+//    }
 
 }

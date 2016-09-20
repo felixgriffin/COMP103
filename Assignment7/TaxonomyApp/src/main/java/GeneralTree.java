@@ -21,7 +21,7 @@ import ecs100.*;
  *         <p>
  *         Based on code written by Stuart Marshall and Monique Damitio
  */
-public class GeneralTree {
+class GeneralTree {
     // values for supporting drawing
     static final double nodeRad = 20;
     private static final int levelSep = 60;
@@ -32,7 +32,7 @@ public class GeneralTree {
     /**
      * The initial GeneralTree contains no nodes, so the root is set to null to reflect this.
      */
-    public GeneralTree() {
+    GeneralTree() {
         this.root = null;
     }
 
@@ -122,8 +122,8 @@ public class GeneralTree {
         GeneralTreeNode targetNode = this.findNode(targetName);
         GeneralTreeNode destinationNode = this.findNode(destinationName);
         if (targetNode == null || destinationNode == null || destinationNode.contains(targetNode)) return;
-        targetNode.remove();
         destinationNode.addChild(targetNode);
+        targetNode.remove();
     }
 
     /**
@@ -146,9 +146,14 @@ public class GeneralTree {
      * @return the string data at the closest common ancestor node,
      * or null if one or both of the parameter's target nodes don't exist.
      */
-    public String findClosestCommonAncestor(String target1, String target2) {
-        /*# YOUR CODE HERE */
-        return "";
+    String findClosestCommonAncestor(String target1, String target2) {
+        GeneralTreeNode T1 = findNode(target1);
+        GeneralTreeNode T2 = findNode(target2);
+        if(T1==null||T2==null||T1.getParent()==null||T2.getParent()==null)return null;
+        while(!T1.getParent().contains(T2)){
+            T1 = T1.getParent();
+        }
+        return T1.getParent().getName();
     }
 
     /**
@@ -222,7 +227,7 @@ public class GeneralTree {
      *
      * @param targetName the name of the node to start printing from.
      */
-    public void printSubtreeFrom(String targetName) {
+    void printSubtreeFrom(String targetName) {
         // attempt to find the target node
         GeneralTreeNode targetNode = this.findNode(targetName);
 
@@ -238,7 +243,7 @@ public class GeneralTree {
      * Prints the names of all the nodes in the path from the target node
      * to the root of the entire tree
      */
-    public void printPathToRootFrom(String targetName) {
+    void printPathToRootFrom(String targetName) {
         // attempt to find the target node
         GeneralTreeNode targetNode = this.findNode(targetName);
 
@@ -259,7 +264,7 @@ public class GeneralTree {
      *
      * @param depth the depth of the nodes that are to be printed. The root is at depth 0.
      */
-    public void printAllAtDepth(int depth) {
+    void printAllAtDepth(int depth) {
         if (depth < 0) {
             UI.println("Invalid depth - cannot be negative");
             return;
@@ -276,7 +281,7 @@ public class GeneralTree {
      * Saves the whole tree in a file in a format that it can be loaded back in
      * and reconstructed.
      */
-    public void save() {
+    void save() {
         String fname = UIFileChooser.save("Filename to save text into");
 
         if (fname == null) {
@@ -320,17 +325,16 @@ public class GeneralTree {
      *
      * @param scan The scanner connected to the input stream of the file to be loaded in from.
      */
-    public void load(Scanner scan) {
+    void load(Scanner scan) {
         if (scan.hasNext()) {
             root = loadHelper(scan.next(), scan);
         }
-        return;
     }
 
     private GeneralTreeNode loadHelper(String data, Scanner scan) {
         GeneralTreeNode node = new GeneralTreeNode(data);
         int numChildren = scan.nextInt();
-        String junk = scan.nextLine();
+        scan.nextLine();
 
         for (int i = 0; i < numChildren; i++) {
             GeneralTreeNode child = loadHelper(scan.next(), scan);
@@ -345,7 +349,7 @@ public class GeneralTree {
      * First step is to calculate all the locations of the nodes in the tree.
      * Then traverse the tree to draw all the nodes and lines between parents and children.
      */
-    public void redraw() {
+    void redraw() {
         UI.clearGraphics();
 
         if (root == null)

@@ -14,7 +14,7 @@
  * Represents a position on the window
  */
 
-public class Location {
+class Location {
 
     // Fields
 
@@ -23,18 +23,18 @@ public class Location {
 
     // Constructor
 
-    public Location(double x, double y) {
+    Location(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
     // Methods
 
-    public double getX() {
+    double getX() {
         return x;
     }
 
-    public double getY() {
+    double getY() {
         return y;
     }
 

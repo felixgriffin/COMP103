@@ -28,7 +28,7 @@ import java.util.*;
  *         Based on code written by Stuart Marshall and Monique Damitio
  */
 
-public class GeneralTreeNode {
+class GeneralTreeNode {
     // The name that is stored at the node.
     private String name;
 
@@ -36,7 +36,7 @@ public class GeneralTreeNode {
     private GeneralTreeNode parent;
 
     // Since this is a general tree, we don't have a limit on the number of children a node may have, so we use a set.
-    private Set<GeneralTreeNode> children = new HashSet<GeneralTreeNode>();
+    private Set<GeneralTreeNode> children = new HashSet<>();
 
     // This field is only needed for one particular technique for drawing the tree on the screen.
     private Location location;  //location of the center of the node on the screen
@@ -46,17 +46,17 @@ public class GeneralTreeNode {
      *
      * @param newName the name of the new node
      */
-    public GeneralTreeNode(String newName) {
+    GeneralTreeNode(String newName) {
         name = newName;
     }
 
     // getter and setter methods
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public GeneralTreeNode getParent() {
+    GeneralTreeNode getParent() {
         return parent;
     }
 
@@ -64,15 +64,15 @@ public class GeneralTreeNode {
         parent = newParent;
     }
 
-    public Set<GeneralTreeNode> getChildren() {
+    Set<GeneralTreeNode> getChildren() {
         return children;
     }
 
-    public void setLocation(Location newLocation) {
+    void setLocation(Location newLocation) {
         location = newLocation;
     }
 
-    public Location getLocation() {
+    private Location getLocation() {
         return location;
     }
 
@@ -147,7 +147,7 @@ public class GeneralTreeNode {
      * HINT: The most natural version of this method is recursive.
      */
     void printSubtree() {
-        UI.print(name);
+        UI.println(name);
         children.forEach(GeneralTreeNode::printSubtree);
     }
 
@@ -165,7 +165,7 @@ public class GeneralTreeNode {
      * @param node the node to check for
      * @return true if the node is in the subtree, and false otherwise
      */
-    public boolean contains(GeneralTreeNode node) {
+    boolean contains(GeneralTreeNode node) {
         if (node == this) return true;
         if (node == null || children.isEmpty()) return false;
         for (GeneralTreeNode curNode : children) {
@@ -183,7 +183,7 @@ public class GeneralTreeNode {
      * COMPLETION.
      */
 
-    public void printPathToRoot() {
+    void printPathToRoot() {
         if (parent != null) parent.printPathToRoot();
         UI.println(name);
     }
@@ -200,8 +200,14 @@ public class GeneralTreeNode {
      * @param targetDepth the depth of the tree whores nodes are to be listed. The root is at depth 0.
      */
 
-    public void printAllAtDepth(int targetDepth, int currentDepth) {
-        /*# YOUR CODE HERE */
+    void printAllAtDepth(int targetDepth, int currentDepth) {
+        if (currentDepth == targetDepth) {
+            UI.println(name);
+            return;
+        }
+        for (GeneralTreeNode node : children) {
+            node.printAllAtDepth(targetDepth, currentDepth + 1);
+        }
 
     }
 

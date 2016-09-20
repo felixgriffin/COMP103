@@ -7,7 +7,9 @@
  * Usercode:
  * ID:
  */
+
 import ecs100.*;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
@@ -16,20 +18,19 @@ import java.util.*;
  * This is the main class of the entire program. It sets up the input side
  * of the user interface, and maintains a GeneralTree object. Note that this
  * GeneralTree object is not null even if there are no actual nodes inside the tree.
- * 
+ * <p>
  * The actual display of the tree is handled in the GeneralTree class itself.
  * This class deals with input, and the output of responses to report queries.
- *
  */
 public class TaxonomyApp {
 
     private GeneralTree taxonomy;  // the tree representing the taxonomy
 
-    /** 
+    /**
      * Constructs a new TaxonomyApp object.
      * Sets up the GUI
      */
-    public TaxonomyApp() {
+    private TaxonomyApp() {
 
         taxonomy = new GeneralTree();
 
@@ -56,7 +57,7 @@ public class TaxonomyApp {
         taxonomy.redraw();
     }
 
-    public void newTaxonomy() {
+    private void newTaxonomy() {
         String rootString = UI.askString("Name of root node:");
 
         taxonomy = new GeneralTree();
@@ -64,7 +65,7 @@ public class TaxonomyApp {
         taxonomy.redraw();
     }
 
-    public void loadTaxonomy() {
+    private void loadTaxonomy() {
 
         String fname = UIFileChooser.open("Filename to read text from");
 
@@ -76,14 +77,13 @@ public class TaxonomyApp {
             Scanner scan = new Scanner(new File(fname));
             taxonomy.load(scan);
             scan.close();
-        }
-        catch(IOException ex) {
+        } catch (IOException ex) {
             UI.println("File loading failed: " + ex);
-        } 
+        }
         taxonomy.redraw();
     }
 
-    public void addNode() {
+    private void addNode() {
         String name;
         String parentName = UI.askString("Parent to add under:");
 
@@ -91,21 +91,20 @@ public class TaxonomyApp {
         if (parentName.length() == 0) {
             parentName = null;
             name = UI.askString("Name to add above root:");
-        }
-        else
+        } else
             name = UI.askString("Name to add under " + parentName + ":");
 
         taxonomy.addNode(name, parentName);
         taxonomy.redraw();
     }
 
-    public void removeNode() {
+    private void removeNode() {
         String name = UI.askString("Name to remove:");
         taxonomy.removeNode(name);
         taxonomy.redraw();
     }
 
-    public void moveNode() {
+    private void moveNode() {
         String subtreeName = UI.askString("Name at root of subtree:");
         String destinationName = UI.askString("To new parent destination");
         taxonomy.moveSubtree(subtreeName, destinationName);
@@ -113,23 +112,23 @@ public class TaxonomyApp {
     }
 
     //Reports
-    public void reportBelow() {
+    private void reportBelow() {
         UI.println("Subtree:");
         String subtreeRootName = UI.askString("Name at root of subtree:");
         taxonomy.printSubtreeFrom(subtreeRootName);
     }
 
-    public void reportAbove() {
+    private void reportAbove() {
         String targetName = UI.askString("Name of target node:");
         taxonomy.printPathToRootFrom(targetName);
     }
 
-    public void reportSameDepth() {
+    private void reportSameDepth() {
         int depth = UI.askInt("Report at depth:");
         taxonomy.printAllAtDepth(depth);
     }
 
-    public void findClosestAncestor() {
+    private void findClosestAncestor() {
         String name1 = UI.askString("First name:");
         String name2 = UI.askString("Second name:");
         String closestAncestor = taxonomy.findClosestCommonAncestor(name1, name2);
@@ -138,6 +137,6 @@ public class TaxonomyApp {
 
     public static void main(String[] arguments) {
         new TaxonomyApp();
-    }   
+    }
 
 }

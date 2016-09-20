@@ -10,15 +10,16 @@
 /* Name: pondy & marcus 
  */
 
-/** Represents a position on the window
+/**
+ * Represents a position on the window
  */
 
 public class Location {
 
     // Fields
 
-    private double x;  
-    private double y;  
+    private double x;
+    private double y;
 
     // Constructor
 

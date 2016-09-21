@@ -3,9 +3,9 @@
 // You may not distribute it in any other way without permission.
 
 /* Code for COMP 103, Assignment 7
- * Name:
- * Usercode:
- * ID:
+ * Name: Shaun  Sinclair
+ * Usercode: sinclashau
+ * ID: 300383795
  */
 
 import java.util.*;
@@ -149,12 +149,34 @@ class GeneralTree {
     String findClosestCommonAncestor(String target1, String target2) {
         GeneralTreeNode T1 = findNode(target1);
         GeneralTreeNode T2 = findNode(target2);
-        if(T1==null||T2==null||T1.getParent()==null||T2.getParent()==null)return null;
-        while(!T1.getParent().contains(T2)){
+        if (T1 == null || T2 == null || T1.getParent() == null || T2.getParent() == null) return null;
+        while (!T1.getParent().contains(T2)) {
             T1 = T1.getParent();
         }
         return T1.getParent().getName();
     }
+
+
+//    int[] widths = new int[100];
+//
+//    computeWidths(root, 0, widths);
+//
+//    int[] separations = new int[100];  // separations between nodes at each level
+//
+//        for (int d = 0; d < 100 && widths[d] != 0; d++) {
+//        separations[d] = (UI.getCanvasWidth() - 20) / (widths[d] + 1);
+//    }
+//
+//    int[] nextPos = new int[100];  // loc of next node at each level
+//
+//        for (int d = 0; d < 100; d++) {
+//        if (widths[d] == 0)
+//            break;
+//
+//        nextPos[d] = separations[d] / 2;
+//    }
+//
+//    setLocations(root, 0, nextPos, separations);
 
     /**
      * Calculates locations for each node in the tree
@@ -169,51 +191,62 @@ class GeneralTree {
      * of the below locations calculation.
      */
     private void calculateLocations() {
-        int[] widths = new int[100];
-
-        computeWidths(root, 0, widths);
-
-        int[] separations = new int[100];  // separations between nodes at each level
-
-        for (int d = 0; d < 100 && widths[d] != 0; d++) {
-            separations[d] = (UI.getCanvasWidth() - 20) / (widths[d] + 1);
+        int spacing;
+        for (int i = 0; i < getTreeHeight(root); i++) {
+            ArrayList<GeneralTreeNode> nodes =getNodesAtLevel(root, i, 0);
+            spacing=UI.getCanvasWidth()/nodes.size()+2;
+            for (int j = 0; j < nodes.size(); j++) {
+                nodes.get(j).setLocation(new Location(spacing*j+1,nodes.get(j).getLocation().getY()));
+            }
         }
+    }
 
-        int[] nextPos = new int[100];  // loc of next node at each level
-
-        for (int d = 0; d < 100; d++) {
-            if (widths[d] == 0)
-                break;
-
-            nextPos[d] = separations[d] / 2;
+    private int getTreeHeight(GeneralTreeNode root) {
+        if (root.getChildren().isEmpty())return 0;
+        int max = 0,cur;
+        for (GeneralTreeNode node : root.getChildren()) {
+            cur=getTreeHeight(node);
+            if (max < cur)max=cur;
         }
+        return max;
+    }
 
-        setLocations(root, 0, nextPos, separations);
+
+    private ArrayList<GeneralTreeNode> getNodesAtLevel(GeneralTreeNode cur, int targetDepth, int currentDepth) {
+        ArrayList<GeneralTreeNode> nodes = new ArrayList<>();
+        if (currentDepth == targetDepth) {
+            nodes.add(cur);
+            return nodes;
+        }
+        for (GeneralTreeNode node : cur.getChildren()) {
+            nodes.addAll(getNodesAtLevel(node, targetDepth, currentDepth + 1));
+        }
+        return nodes;
     }
 
     /**
      * Computes the number of nodes at each level of the tree,
      * by accumulating the count in the widths array
      */
-    private void computeWidths(GeneralTreeNode node, int depth, int[] widths) {
-        widths[depth]++;
-
-        for (GeneralTreeNode child : node.getChildren()) {
-            computeWidths(child, depth + 1, widths);
-        }
-    }
-
-    /**
-     * Sets the location of each node at each level of the tree,
-     * using the depth and positions
-     */
-    private void setLocations(GeneralTreeNode node, int depth, int[] nextPos, int[] separations) {
-        node.setLocation(new Location(nextPos[depth], levelSep * depth + levelSep / 2));
-        nextPos[depth] += separations[depth];
-
-        for (GeneralTreeNode child : node.getChildren())
-            setLocations(child, depth + 1, nextPos, separations);
-    }
+//    private void computeWidths(GeneralTreeNode node, int depth, int[] widths) {
+//        widths[depth]++;
+//
+//        for (GeneralTreeNode child : node.getChildren()) {
+//            computeWidths(child, depth + 1, widths);
+//        }
+//    }
+//
+//    /**
+//     * Sets the location of each node at each level of the tree,
+//     * using the depth and positions
+//     */
+//    private void setLocations(GeneralTreeNode node, int depth, int[] nextPos, int[] separations) {
+//        node.setLocation(new Location(nextPos[depth], levelSep * depth + levelSep / 2));
+//        nextPos[depth] += separations[depth];
+//
+//        for (GeneralTreeNode child : node.getChildren())
+//            setLocations(child, depth + 1, nextPos, separations);
+//    }
 
     /*# 
      *********************************************************

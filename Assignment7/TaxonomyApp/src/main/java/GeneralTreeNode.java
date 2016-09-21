@@ -3,9 +3,9 @@
 // You may not distribute it in any other way without permission.
 
 /* Code for COMP 103, Assignment 7
- * Name:
- * Usercode:
- * ID:
+ * Name: Shaun  Sinclair
+ * Usercode: sinclashau
+ * ID: 300383795
  */
 
 import java.awt.Color;
@@ -72,7 +72,7 @@ class GeneralTreeNode {
         location = newLocation;
     }
 
-    private Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 

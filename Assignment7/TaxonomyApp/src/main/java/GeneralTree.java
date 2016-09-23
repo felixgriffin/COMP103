@@ -90,13 +90,13 @@ class GeneralTree {
      * <p>
      * Do nothing if the node is the root node of the entire tree, or if target node doesn't exist.
      * <p>
-     * HINT: Make sure to make use of methods 'remove' and 'addChildrenFromNode' from class GeneralTreeNode.
+     * HINT: Make sure to make use of methods 'removeFromParent' and 'addChildrenFromNode' from class GeneralTreeNode.
      */
     void removeNode(String targetName) {
         GeneralTreeNode toDestroy = findNode(targetName);
         if (toDestroy == null || toDestroy.getParent() == null) return;
         toDestroy.getParent().addChildrenFromNode(toDestroy);
-        toDestroy.remove();
+        toDestroy.removeFromParent();
     }
 
     /**
@@ -111,8 +111,8 @@ class GeneralTree {
      * HINT: If you are struggling to implement the above test, make at least sure that there is no
      * attempt to move the root of the tree.
      * <p>
-     * HINT: Make sure to use both methods 'remove' and 'addChild' from class GeneralTreeNode, as
-     * moving means to remove at one place and to add at another place.
+     * HINT: Make sure to use both methods 'removeFromParent' and 'addChild' from class GeneralTreeNode, as
+     * moving means to removeFromParent at one place and to add at another place.
      *
      * @param targetName      the name of the node to be moved
      * @param destinationName the name of the destination node to which the node to be moved
@@ -122,7 +122,7 @@ class GeneralTree {
         GeneralTreeNode targetNode = this.findNode(targetName);
         GeneralTreeNode destinationNode = this.findNode(destinationName);
         if (targetNode == null || destinationNode == null || destinationNode.contains(targetNode)) return;
-        targetNode.remove();
+        targetNode.removeFromParent();
         destinationNode.addChild(targetNode);
     }
 
@@ -155,7 +155,6 @@ class GeneralTree {
         }
         return T1.getParent().getName();
     }
-
 
 
     /**
@@ -370,7 +369,6 @@ class GeneralTree {
         GeneralTreeNode node = new GeneralTreeNode(data);
         int numChildren = scan.nextInt();
         scan.nextLine();
-
         for (int i = 0; i < numChildren; i++) {
             GeneralTreeNode child = loadHelper(scan.next(), scan);
             node.addChild(child); // tell node to add a child.

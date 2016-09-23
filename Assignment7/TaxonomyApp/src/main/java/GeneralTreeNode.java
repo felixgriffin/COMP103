@@ -72,7 +72,7 @@ class GeneralTreeNode {
         location = newLocation;
     }
 
-    public Location getLocation() {
+    private Location getLocation() {
         return location;
     }
 
@@ -121,7 +121,7 @@ class GeneralTreeNode {
      * <p>
      * CORE.
      */
-    void remove() {
+    void removeFromParent() {
         parent.children.remove(this);
     }
 
@@ -184,8 +184,8 @@ class GeneralTreeNode {
      */
 
     void printPathToRoot() {
+        UI.println(name+"\n  |");
         if (parent != null) parent.printPathToRoot();
-        UI.println(name);
     }
 
     /**
@@ -225,11 +225,9 @@ class GeneralTreeNode {
      * attention in what order you 'paint' on the canvas in order to get a good looking result.
      */
     void redrawSubtree() {
-        double x = this.location.getX(), y = this.location.getY(), x2, y2;
+        double x = this.location.getX(), y = this.location.getY();
         for (GeneralTreeNode node : children) {
-            x2 = node.location.getX();
-            y2 = node.location.getY();
-            UI.drawLine(x, y, x2, y2);
+            UI.drawLine(x, y, node.location.getX(), node.location.getY());
             node.redrawSubtree();
         }
         this.redrawNode();

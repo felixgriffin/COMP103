@@ -99,7 +99,7 @@ public class TaxonomyApp {
     }
 
     private void removeNode() {
-        String name = UI.askString("Name to remove:");
+        String name = UI.askString("Name to removeFromParent:");
         taxonomy.removeNode(name);
         taxonomy.redraw();
     }

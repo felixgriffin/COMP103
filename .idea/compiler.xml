@@ -26,6 +26,7 @@
         <module name="2047" />
         <module name="2048" />
         <module name="ArraySets" />
+        <module name="BellsPizzaSimulation" />
         <module name="BST" />
         <module name="FastFood" />
         <module name="MazeSearch" />
@@ -52,6 +53,8 @@
       <module name="Assignment5" target="1.8" />
       <module name="Assignment6" target="1.8" />
       <module name="Assignment7" target="1.8" />
+      <module name="Assignment8" target="1.8" />
+      <module name="BellsPizzaSimulation" target="1.8" />
       <module name="BST" target="1.8" />
       <module name="COMP103" target="1.8" />
       <module name="FastFood" target="1.8" />

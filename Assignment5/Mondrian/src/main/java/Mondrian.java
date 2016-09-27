@@ -33,7 +33,7 @@ public class Mondrian {
     private static final Color mondrianBlue = new Color(8, 56, 138);
 
     // fields
-    private static int level = 2;   // how deeply sub-Mondrians may be nested
+    private static int level = 2;   // how deeply sub-Mondrian may be nested
     private static int chance = 45; // chance to create a sub-Mondrian in %
 
     private static List<Color> mondrianColours = new ArrayList<>(); // collection to pick Mondrian colours from

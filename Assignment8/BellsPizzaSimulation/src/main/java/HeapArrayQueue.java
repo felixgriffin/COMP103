@@ -3,20 +3,19 @@
 // You may not distribute it in any other way without permission.
 
 /* Code for COMP 103, Assignment 8
- * Name:
- * Usercode:
- * ID:
+ * Name: Shaun Sinclair
+ * Usercode: sinclashau
+ * ID: 300383795
  */
 
-import ecs100.UI;
-
-import java.util.*;
+import java.util.AbstractQueue;
+import java.util.Iterator;
 
 /**
  * Implements a priority queue based on a heap that is
  * represented with an array.
  */
-public class HeapArrayQueue<E extends Comparable<? super E>> extends AbstractQueue<E> {
+class HeapArrayQueue<E extends Comparable<? super E>> extends AbstractQueue<E> {
 
     @SuppressWarnings("unchecked")
     private E[] data = (E[]) (new Comparable[7]);
@@ -147,15 +146,13 @@ public class HeapArrayQueue<E extends Comparable<? super E>> extends AbstractQue
             E[] newData = (E[]) new Comparable[data.length * 2];
 
             // copy data elements
-            for (int loop = 0; loop < count; loop++) {
-                newData[loop] = data[loop];
-            }
+            System.arraycopy(data, 0, newData, 0, count);
             data = newData;
         }
-        return;
     }
 
     // no iterator implementation required for this assignment
+    @SuppressWarnings("ConstantConditions")
     public Iterator<E> iterator() {
         return null;
     }

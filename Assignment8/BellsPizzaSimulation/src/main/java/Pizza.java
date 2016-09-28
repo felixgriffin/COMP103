@@ -3,10 +3,11 @@
 // You may not distribute it in any other way without permission.
 
 /* Code for COMP 103, Assignment 8
- * Name:
- * Usercode:
- * ID:
+ * Name: Shaun Sinclair
+ * Usercode: sinclashau
+ * ID: 300383795
  */
+
 /** 
  * Represents information about a pizza that has to be delivered.
  * 
@@ -14,7 +15,7 @@
  * 
  */
 
-public class Pizza implements Comparable<Pizza> {
+class Pizza implements Comparable<Pizza> {
     static final double             HandlingCost = 1.5;             // dollars
     static final double             PerMinuteDeliveryCost = 0.25;   // dollars 
 
@@ -24,10 +25,10 @@ public class Pizza implements Comparable<Pizza> {
     static private final int        UrgentDeliveryMinutes = 30;     // minutes   
     static private final int        StandardDeliveryMinutes = 120;  // minutes
 
-    String destination;   // place to deliver to
-    int deliveryTime;     // time it will take to deliver the pizza
-    int orderedTime;      // the time when the pizza was ordered
-    boolean isUrgent;     // is the delivery urgent?
+    private String destination;   // place to deliver to
+    private int deliveryTime;     // time it will take to deliver the pizza
+    private int orderedTime;      // the time when the pizza was ordered
+    private boolean isUrgent;     // is the delivery urgent?
 
     /**
      * Constructs a new Pizza object
@@ -37,7 +38,7 @@ public class Pizza implements Comparable<Pizza> {
      * @param orderedTime - the time stamp when the order for this pizza came in
      * @isUrgent - is true when the pizza has been ordered as being "urgent"
      */
-    public Pizza(String destination, int deliveryTime, int orderedTime, boolean isUrgent) {
+    Pizza(String destination, int deliveryTime, int orderedTime, boolean isUrgent) {
         this.destination = destination;
         this.deliveryTime = deliveryTime;
         this.orderedTime = orderedTime;
@@ -46,20 +47,20 @@ public class Pizza implements Comparable<Pizza> {
 
     public String destination()   {return destination;}
 
-    public int deadline()           {return orderedTime + (isUrgent ? UrgentDeliveryMinutes : StandardDeliveryMinutes);}
+    int deadline()           {return orderedTime + (isUrgent ? UrgentDeliveryMinutes : StandardDeliveryMinutes);}
 
-    public int deliveryTime()     {return deliveryTime;}
+    int deliveryTime()     {return deliveryTime;}
 
     public int orderedTime()    {return orderedTime;}
 
-    public boolean isUrgent()  {return isUrgent;}
+    boolean isUrgent()  {return isUrgent;}
 
     /**
      * Pizza price.
      * 
      * @returns the price of the pizza, depending on whether it is an urgent delivery or not. 
      */
-    public double price() {
+    double price() {
         return isUrgent ? UrgentPrice : StandardPrice;
     }
 
@@ -68,7 +69,7 @@ public class Pizza implements Comparable<Pizza> {
      * 
      * @returns the prize of the pizza, multiplied by the 'late delivery' penalty factor.
      */
-    public double latePrice() {
+    double latePrice() {
         return LatePenaltyFactor * this.price();
     }
 

@@ -86,9 +86,8 @@ class HeapArrayQueue<E extends Comparable<? super E>> extends AbstractQueue<E> {
             if (data[max].compareTo(data[nodeIndex]) < 0) {
                 swap(max, nodeIndex);
                 nodeIndex = max;
-            } else {
-                return;
-            }
+            } else return;
+
         }
     }
 

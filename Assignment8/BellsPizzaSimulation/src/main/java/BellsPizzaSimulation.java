@@ -80,7 +80,7 @@ public class BellsPizzaSimulation {
      * standard queue and the priority queue solutions.
      *
      * For the COMPLETION stage, you need to change the value of variable 'fname'
-     * from "log"+i to "completLog..."i.
+     * from "log"+i to "completlog..."i.
      *
      * Each log file is used to simulate handling a sequence of pizza orders over
      * time. For each log file, the simulation is first run with an ordinary queue
@@ -93,7 +93,7 @@ public class BellsPizzaSimulation {
         try {
             for (int i = 1; i<=20; i++) {
 
-                // compose file name; change this to "completLog"+i for the COMPLETION stage
+                // compose file name; change this to "completlog"+i for the COMPLETION stage
                 String fname= "completlog"+i;
 
                 System.out.println("======================= Log File: "+ fname + " =======================");
@@ -117,7 +117,7 @@ public class BellsPizzaSimulation {
     }
 
     /**
-     * Returns the profit (if positive, or loss if negatigve) of handling
+     * Returns the profit (if positive, or loss if negative) of handling
      * the pizza orders contained in the log file, using the queue provided
      * by the runTests() method above.
      */

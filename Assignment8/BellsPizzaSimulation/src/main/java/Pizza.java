@@ -45,13 +45,13 @@ class Pizza implements Comparable<Pizza> {
         this.isUrgent = isUrgent;
     }
 
-    public String destination()   {return destination;}
+//    public String destination()   {return destination;}
 
     int deadline()           {return orderedTime + (isUrgent ? UrgentDeliveryMinutes : StandardDeliveryMinutes);}
 
     int deliveryTime()     {return deliveryTime;}
 
-    public int orderedTime()    {return orderedTime;}
+//    public int orderedTime()    {return orderedTime;}
 
     boolean isUrgent()  {return isUrgent;}
 
@@ -65,7 +65,7 @@ class Pizza implements Comparable<Pizza> {
     }
 
     /**
-     * Pizza price if delivered lated.
+     * Pizza price if delivered late.
      * 
      * @returns the prize of the pizza, multiplied by the 'late delivery' penalty factor.
      */

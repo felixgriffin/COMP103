@@ -101,15 +101,6 @@ class HeapArrayQueue<E extends Comparable<? super E>> extends AbstractQueue<E> {
         return right;
     }
 
-//    private void bubbleUpFromIndex(int nodeIndex) {
-//        int parent = getParent(nodeIndex);
-//        while(data[nodeIndex].compareTo(data[parent]) < 0) {
-//            swap(nodeIndex,parent);
-//            nodeIndex = parent;
-//            parent = getParent(nodeIndex);
-//        }
-//    }
-
     private void bubbleUpFromIndex(int nodeIndex) {
         E parent = data[getParent(nodeIndex)];
         E child = data[nodeIndex];

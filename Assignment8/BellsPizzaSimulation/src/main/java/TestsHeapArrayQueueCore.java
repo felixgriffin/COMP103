@@ -20,14 +20,15 @@ import java.util.*;
  */
 public class TestsHeapArrayQueueCore
 {
-    Queue<Pizza> emptyQueue = new HeapArrayQueue<Pizza>();;
-    Queue<Pizza> nonEmptyQueue;
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    private Queue<Pizza> emptyQueue = new HeapArrayQueue<>();
+    private Queue<Pizza> nonEmptyQueue;
 
     // standard pizza, ordered at t=0 minutes
-    Pizza standardPizza = new Pizza("karori", 0, 0, false);
+    private Pizza standardPizza = new Pizza("karori", 0, 0, false);
 
     // urgent pizza, ordered later, but with earlier deadline
-    Pizza urgentPizza = new Pizza("wilton", 0, 10, true);
+    private Pizza urgentPizza = new Pizza("wilton", 0, 10, true);
 
     public TestsHeapArrayQueueCore()
     {
@@ -41,7 +42,7 @@ public class TestsHeapArrayQueueCore
     @Before
     public void setUp()
     {
-        nonEmptyQueue = new HeapArrayQueue<Pizza>();
+        nonEmptyQueue = new HeapArrayQueue<>();
         nonEmptyQueue.offer(standardPizza);
     }
 

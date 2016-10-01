@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Assignment1/0016/0016.iml" filepath="$PROJECT_DIR$/Assignment1/0016/0016.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment1/2048/2048.iml" filepath="$PROJECT_DIR$/Assignment1/2048/2048.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment9/ArrayQueue/ArrayQueue.iml" filepath="$PROJECT_DIR$/Assignment9/ArrayQueue/ArrayQueue.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment3/ArraySets/ArraySets.iml" filepath="$PROJECT_DIR$/Assignment3/ArraySets/ArraySets.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment1/Assignment1.iml" filepath="$PROJECT_DIR$/Assignment1/Assignment1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment2/Assignment2.iml" filepath="$PROJECT_DIR$/Assignment2/Assignment2.iml" />
@@ -13,11 +14,13 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment6/Assignment6.iml" filepath="$PROJECT_DIR$/Assignment6/Assignment6.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment7/Assignment7.iml" filepath="$PROJECT_DIR$/Assignment7/Assignment7.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment8/Assignment8.iml" filepath="$PROJECT_DIR$/Assignment8/Assignment8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment9/Assignment9.iml" filepath="$PROJECT_DIR$/Assignment9/Assignment9.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment6/BST/BST.iml" filepath="$PROJECT_DIR$/Assignment6/BST/BST.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment8/BellsPizzaSimulation/BellsPizzaSimulation.iml" filepath="$PROJECT_DIR$/Assignment8/BellsPizzaSimulation/BellsPizzaSimulation.iml" />
       <module fileurl="file://$PROJECT_DIR$/COMP103.iml" filepath="$PROJECT_DIR$/COMP103.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment2/FastFood/FastFood.iml" filepath="$PROJECT_DIR$/Assignment2/FastFood/FastFood.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment5/MazeSearch/MazeSearch.iml" filepath="$PROJECT_DIR$/Assignment5/MazeSearch/MazeSearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment9/MoleculeRenderer/MoleculeRenderer.iml" filepath="$PROJECT_DIR$/Assignment9/MoleculeRenderer/MoleculeRenderer.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment5/Mondrian/Mondrian.iml" filepath="$PROJECT_DIR$/Assignment5/Mondrian/Mondrian.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment5/Permutations/Permutations.iml" filepath="$PROJECT_DIR$/Assignment5/Permutations/Permutations.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment4/SlideShowApp/SlideShowApp.iml" filepath="$PROJECT_DIR$/Assignment4/SlideShowApp/SlideShowApp.iml" />

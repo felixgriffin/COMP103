@@ -25,11 +25,13 @@
         <module name="0016" />
         <module name="2047" />
         <module name="2048" />
+        <module name="ArrayQueue" />
         <module name="ArraySets" />
         <module name="BellsPizzaSimulation" />
         <module name="BST" />
         <module name="FastFood" />
         <module name="MazeSearch" />
+        <module name="MoleculeRenderer" />
         <module name="Mondrian" />
         <module name="Permutations" />
         <module name="SlideShowApp" />
@@ -42,6 +44,7 @@
       <module name="0016" target="1.8" />
       <module name="2047" target="1.8" />
       <module name="2048" target="1.8" />
+      <module name="ArrayQueue" target="1.8" />
       <module name="ArraySets" target="1.8" />
       <module name="Assignment 1" target="1.8" />
       <module name="Assignment 2" target="1.8" />
@@ -54,11 +57,13 @@
       <module name="Assignment6" target="1.8" />
       <module name="Assignment7" target="1.8" />
       <module name="Assignment8" target="1.8" />
+      <module name="Assignment9" target="1.8" />
       <module name="BellsPizzaSimulation" target="1.8" />
       <module name="BST" target="1.8" />
       <module name="COMP103" target="1.8" />
       <module name="FastFood" target="1.8" />
       <module name="MazeSearch" target="1.8" />
+      <module name="MoleculeRenderer" target="1.8" />
       <module name="Mondrian" target="1.8" />
       <module name="Permutations" target="1.8" />
       <module name="SlideShowApp" target="1.8" />

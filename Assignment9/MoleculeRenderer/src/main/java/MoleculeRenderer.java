@@ -71,7 +71,10 @@ public class MoleculeRenderer {
             readMoleculeFile(filename);
             view(0, new BackToFrontComparator());
         });
-        UI.addButton("FromFront", () -> view(0, new BackToFrontComparator()));
+        UI.addButton("View from front", () -> view(0, new BackToFrontComparator()));
+        UI.addButton("View from back", () -> view(180, new FrontToBackComparator()));
+        UI.addButton("View from left", () -> view(90, new LeftToRightComparator()));
+        UI.addButton("View from right", () -> view(-90, new RightToLeftComparator()));
         UI.addButton("Rotate right", () -> changeView(-1));
         UI.addButton("Rotate left", () -> changeView(1));
 

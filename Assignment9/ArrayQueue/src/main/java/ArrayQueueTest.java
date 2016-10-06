@@ -8,6 +8,7 @@
  * ID:
  */
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import static org.junit.Assert.*;
@@ -69,22 +70,11 @@ public class ArrayQueueTest {
     // that this test case expects an IllegalArgumentException
     // The Unit test will fails if the given exception is not thrown.
     // Since JUnit 4.
-    @Test(expected = IllegalArgumentException.class)
-    public void testAddingNull() {
-        queue.add(null);
-    }
-
     @Test
-    public void testAddingDuplicates() {
-        fillQueue(20);
-
-        for (int i = 1; i <= 20; i++) {
-            String value = "v" + i;
-            assertFalse("Set should not add duplicate item " + value, queue.add(value));
-            assertFalse("Set should not be empty after add.", queue.isEmpty());
-            assertEquals("Size should still be 20 after adding duplicate.", 20, queue.size());
-        }
+    public void testAddingNull() {
+        assertFalse("Queue should not allow adding null",queue.offer(null));
     }
+
 
     @Test
     public void testContains() {
@@ -108,8 +98,8 @@ public class ArrayQueueTest {
         fillQueue(15);
 
         for (int i = 1; i <= 15; i++) {
-            String check=queue.poll();
-            assertTrue("fail",check.equals("v"+i));
+            assertEquals("Queue should poll v"+i,"v"+i,queue.poll());
+            assertEquals("Queue should now be of size"+(15-i),15-i,queue.size());
         }
 
     }

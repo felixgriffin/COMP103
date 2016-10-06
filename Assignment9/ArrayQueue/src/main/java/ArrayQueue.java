@@ -73,8 +73,6 @@ import java.util.*;
 
 public class ArrayQueue<E> extends AbstractQueue<E> {
 
-    private static int INITIALCAPACITY = 16;
-
     private E[] data;
     private int front = 0;    //the index of the first item in the queue
     private int back = 0;   //the index where the next new item will go
@@ -84,7 +82,8 @@ public class ArrayQueue<E> extends AbstractQueue<E> {
     @SuppressWarnings("unchecked")
         // this will stop Java complaining
     ArrayQueue() {
-        data = (E[]) new Object[INITIALCAPACITY];
+        int InitialCapacity = 16;
+        data = (E[]) new Object[InitialCapacity];
     }
 
     /**
@@ -170,7 +169,7 @@ public class ArrayQueue<E> extends AbstractQueue<E> {
      * Note that because it is an inner class, it has access to the
      * ArrayQueue's private fields.
      */
-    private class ArrayQueueIterator<E> implements Iterator<E> {
+    private static class ArrayQueueIterator<E> implements Iterator<E> {
         // needs fields, constructor, hasNext(), next(), and remove()
 
         private ArrayQueue<E> queue; // reference to the list it is iterating down
@@ -185,14 +184,14 @@ public class ArrayQueue<E> extends AbstractQueue<E> {
          * Return true if iterator has at least one more item
          */
         public boolean hasNext() {
-            return (nextIndex < back);
+            return (nextIndex < queue.back);
         }
 
         /**
          * Return next item in the set
          */
         public E next() {
-            if (nextIndex == back)
+            if (nextIndex == queue.back)
                 throw new NoSuchElementException();
 
             E item = queue.data[nextIndex];

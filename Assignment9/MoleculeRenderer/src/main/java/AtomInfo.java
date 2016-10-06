@@ -8,7 +8,13 @@
  * ID: 
  */
 
-import java.awt.Color;
+import ecs100.UI;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /** 
@@ -28,6 +34,7 @@ public class AtomInfo {
     public final String name;
     public final double radius;   // the size of the atom
     public final Color color;
+    public BufferedImage mol,image;
 
     /** 
      * Constructor 1 requires the name of the element, the radius, and a color.
@@ -36,6 +43,24 @@ public class AtomInfo {
         this.name = name;
         this.color = color;
         this.radius = radius;
+        try {
+            mol= ImageIO.read(new File("sphere.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        colorize();
+    }
+    private void colorize() {
+        Color color = new Color(this.color.getRed(),this.color.getGreen(),this.color.getBlue(),128);
+        int w = mol.getWidth();
+        int h = mol.getHeight();
+        image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = image.createGraphics();
+        g.drawImage(mol, 0, 0, null);
+        g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(color);
+        g.fillRect(0, 0, w, h);
+        g.dispose();
     }
 
     /**

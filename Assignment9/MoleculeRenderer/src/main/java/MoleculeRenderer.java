@@ -57,8 +57,6 @@ public class MoleculeRenderer {
 
     private double currentAngle = 0.0;    //current viewing angle (in degrees)
 
-    private double rotationStep = 5.0;    // change in ange when rotation around the molecule
-
     // Constructor:
 
     /**
@@ -93,6 +91,7 @@ public class MoleculeRenderer {
     }
 
     private void changeView(int multi) {
+        double rotationStep = 5.0;
         view(currentAngle += (multi * rotationStep), new PerspectiveComparator());
         render();
     }
@@ -114,7 +113,7 @@ public class MoleculeRenderer {
             Scanner s = new Scanner(new File(fname));
             while (s.hasNext()) {
                 AtomInfo cur = atoms.get(s.next());
-                molecule.add(new MoleculeElement(s.nextDouble(), s.nextDouble(), s.nextDouble(), cur.color, cur.radius));
+                molecule.add(new MoleculeElement(s.nextDouble(), s.nextDouble(), s.nextDouble(), cur.image, cur.radius));
                 s.nextLine();
             }
         } catch (IOException ex) {

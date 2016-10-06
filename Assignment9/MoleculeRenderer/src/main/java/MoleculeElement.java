@@ -9,7 +9,12 @@
  */
 
 import ecs100.*;
-import java.awt.Color;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /** 
@@ -35,23 +40,23 @@ public class MoleculeElement {
     private double y;       // distance down
     private double z;       // distance away
 
-    private Color color;   // color of the atom
+    private Image sphere;   // color of the atom
     private double radius;  // radius
 
     /** Constructor: requires the position, color, and radius */
-    public MoleculeElement (double x, double y, double z, Color color, double radius) {
+    MoleculeElement(double x, double y, double z, Image sphere, double radius) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.color = color;
+        this.sphere = sphere;
         this.radius = radius;
     }
 
-    public double getX() {return x;}
+    double getX() {return x;}
 
     public double getY() {return y;}
 
-    public double getZ() {return z;}
+    double getZ() {return z;}
 
     /** 
      * @param other another atom to check visibility against
@@ -77,7 +82,7 @@ public class MoleculeElement {
      *     0 degrees corresponds to viewing from the front;
      *   90 degrees corresponds to viewing from the right;
      */
-    public void render(double angle) {
+    void render(double angle) {
         double radian = angle * Math.PI / 180;
         double XcordAfterRotation = 0;
         double top = 0;
@@ -92,13 +97,11 @@ public class MoleculeElement {
         // horiz coordinate = x * cos(radian) + z * sin(radian)
         XcordAfterRotation = z*Math.sin(radian) + x*Math.cos(radian) - radius;
 
-        UI.setColor(color);
-        UI.fillOval(XcordAfterRotation+400, top, diam, diam);
-        UI.setColor(Color.black);
-        UI.drawOval(XcordAfterRotation+400, top, diam, diam);
-
+        UI.drawImage(sphere,XcordAfterRotation+400,top,diam, diam);
         // The mathematics of this is
         // fairly straightforward if you draw a diagram.
         // C.f. "Rotation matrix" in linear algebra.
     }
+
+
 }

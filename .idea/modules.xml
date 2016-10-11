@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment9/ArrayQueue/ArrayQueue.iml" filepath="$PROJECT_DIR$/Assignment9/ArrayQueue/ArrayQueue.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment3/ArraySets/ArraySets.iml" filepath="$PROJECT_DIR$/Assignment3/ArraySets/ArraySets.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment1/Assignment1.iml" filepath="$PROJECT_DIR$/Assignment1/Assignment1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment10/Assignment10.iml" filepath="$PROJECT_DIR$/Assignment10/Assignment10.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment2/Assignment2.iml" filepath="$PROJECT_DIR$/Assignment2/Assignment2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment3/Assignment3.iml" filepath="$PROJECT_DIR$/Assignment3/Assignment3.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment4/Assignment4.iml" filepath="$PROJECT_DIR$/Assignment4/Assignment4.iml" />
@@ -25,6 +26,7 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment5/Permutations/Permutations.iml" filepath="$PROJECT_DIR$/Assignment5/Permutations/Permutations.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment4/SlideShowApp/SlideShowApp.iml" filepath="$PROJECT_DIR$/Assignment4/SlideShowApp/SlideShowApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment2/Sokoban/Sokoban.iml" filepath="$PROJECT_DIR$/Assignment2/Sokoban/Sokoban.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment10/Sorting/Sorting.iml" filepath="$PROJECT_DIR$/Assignment10/Sorting/Sorting.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment1/Spiral/Spiral.iml" filepath="$PROJECT_DIR$/Assignment1/Spiral/Spiral.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment7/TaxonomyApp/TaxonomyApp.iml" filepath="$PROJECT_DIR$/Assignment7/TaxonomyApp/TaxonomyApp.iml" />
     </modules>

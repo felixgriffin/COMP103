@@ -36,6 +36,7 @@
         <module name="Permutations" />
         <module name="SlideShowApp" />
         <module name="Sokoban" />
+        <module name="Sorting" />
         <module name="Spiral" />
         <module name="TaxonomyApp" />
       </profile>
@@ -50,6 +51,7 @@
       <module name="Assignment 2" target="1.8" />
       <module name="Assignment 3" target="1.8" />
       <module name="Assignment1" target="1.8" />
+      <module name="Assignment10" target="1.8" />
       <module name="Assignment2" target="1.8" />
       <module name="Assignment3" target="1.8" />
       <module name="Assignment4" target="1.8" />
@@ -68,6 +70,7 @@
       <module name="Permutations" target="1.8" />
       <module name="SlideShowApp" target="1.8" />
       <module name="Sokoban" target="1.8" />
+      <module name="Sorting" target="1.8" />
       <module name="Spiral" target="1.8" />
       <module name="TaxonomyApp" target="1.8" />
     </bytecodeTargetLevel>

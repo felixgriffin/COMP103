@@ -39,6 +39,7 @@
         <module name="Sorting" />
         <module name="Spiral" />
         <module name="TaxonomyApp" />
+        <module name="Tut" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
@@ -73,6 +74,7 @@
       <module name="Sorting" target="1.8" />
       <module name="Spiral" target="1.8" />
       <module name="TaxonomyApp" target="1.8" />
+      <module name="Tut" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

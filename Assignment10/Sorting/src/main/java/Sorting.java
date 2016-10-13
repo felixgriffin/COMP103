@@ -30,6 +30,7 @@ public class Sorting{
      *  Hint: if you want to copy an array, use copyArray (below)
      */
     public void testSorts(){
+
         String[] data;
         int size = 11; // 10000;
         long start;

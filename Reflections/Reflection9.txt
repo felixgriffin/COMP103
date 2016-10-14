@@ -1,0 +1,33 @@
+/* Reflection.txt for COMP103
+ * Name:
+ * Usercode:
+ * ID:
+ */
+
+For your reflection:
+====================
+
+Firstly, describe how far you got, on this assignment. Please be specific about
+what you attempted (core, completion, challenge, and any finer-grained goals,
+if applicable). Please also state how successful you believe you were
+respectively. If there were any problems you got stuck on, what were they?
+
+
+* What is the point of comparators?  Why are they necessary in general?
+  Could you suggest an alternative way of solving the same problems that didn't
+  involve having to make these additional classes?
+
+* Coming up with good test methods can be as hard as writing the code that it is
+  testing.  Suggest some guidelines or principles for writing good test methods.
+
+--------------------------------------------------------------------
+Part way thorough challange. I think i did pretty well mostly due to it just being fix these issues 
+that you fixed last time anyway as the issues we where asked to fix where the common bugs that where in a prev assignment.
+
+
+The point of comparitors is to compare two items which is used for sorting or choosing things based on their values.
+Using a method insted of a whole class would be better or doing all the comparisons inside one class with diffrent methods.
+
+Writing test methods as you go so you understand exactly what that method is for.
+Making sure the feedback is descriptive as to what is broken.
+

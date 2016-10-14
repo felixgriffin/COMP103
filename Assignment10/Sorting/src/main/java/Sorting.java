@@ -11,6 +11,7 @@
 import ecs100.*;
 import java.util.*;
 import java.io.*;
+import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 
 /** Code for Sorting Experiment
@@ -29,27 +30,55 @@ public class Sorting{
      *  you resort the same array after it has been sorted.
      *  Hint: if you want to copy an array, use copyArray (below)
      */
-    public void testSorts(){
-
-        String[] data;
-        int size = 11; // 10000;
+    int size = 500; // 10000;
+    String[] data;
+    public void testSorts() {
+        String[] names = {"selection", "insertion", "quick", "quick2", "merge"};
+        String[] types = {"random","sorted","reversed"};
         long start;
-        long time;
+        ArrayList<Consumer<String[]>> sorts = new ArrayList<>();
+        sorts.add(this::selectionSort);
+        sorts.add(this::insertionSort);
+        sorts.add(this::quickSort);
+        sorts.add(this::quickSort2);
+        sorts.add(this::mergeSort);
 
-        UI.setDivider(1);
-        UI.println("\n\n======Selection Sort=======\n");
+        for (int j = 0; j < names.length; j++) {
+            UI.println(names[j] + " :");
 
-        data = createArray(size);
-        //printData(data);
-        start = System.currentTimeMillis();
-        selectionSort(data);
-        time =  System.currentTimeMillis() - start;
+            for (int x = 0; x < types.length; x++) {
+                UI.println(types[x]);
 
-        UI.printf("Number of items:  %,d\n", data.length);
-        UI.printf("Sorted correctly: %b\n", testSorted(data));
-        UI.printf("Time taken:       %.3f s\n", time/1000.0);
+                    for (size = 10; size < 100001; size *= 10) {
+                        UI.println("Size="+size);
+                        sortTypeArray(x);
 
-        UI.println("\n=======DONE=========\n");
+                        long count = 0;
+                        for (int i = 0; i < 5; i++) {
+                        start = System.currentTimeMillis();
+                        sorts.get(j).accept(data);
+                        count += System.currentTimeMillis() - start;
+                    }
+
+                    count /= 5;
+                    UI.println("Average: " + count + " milliseconds");
+                    UI.println(testSorted(data) + "\n");
+                }
+            }
+
+        }
+    }
+
+    private void sortTypeArray(int i){
+       data = createArray(size);
+       if(i==0){
+            return;
+       }
+       Arrays.sort(data);
+       if(i==1){
+           return;
+       }
+       reverseArray(data);
     }
 
 
@@ -105,8 +134,7 @@ public class Sorting{
      */
     public  void mergeSort(String[] data) {
         String[] other = new String[data.length];
-        for(int i=0; i<data.length; i++)
-            other[i]=data[i];
+        System.arraycopy(data, 0, other, 0, data.length);
         mergeSort(data, other, 0, data.length); //call to recursive merge sort method
     }
 

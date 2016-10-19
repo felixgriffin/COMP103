@@ -30,9 +30,9 @@ public class Sorting{
      *  you resort the same array after it has been sorted.
      *  Hint: if you want to copy an array, use copyArray (below)
      */
-    int size = 500; // 10000;
-    String[] data;
-    public void testSorts() {
+    private int size = 500; // 10000;
+    private String[] data;
+    private void testSorts() {
         String[] names = {"selection", "insertion", "quick", "quick2", "merge"};
         String[] types = {"random","sorted","reversed"};
         long start;
@@ -97,7 +97,7 @@ public class Sorting{
     /* ===============SELECTION SORT================= */
 
     /** Sorts the elements of an array of String using selection sort */
-    public  void selectionSort(String[ ] data){
+    private void selectionSort(String[] data){
         // for each position, from 0 up, find the next smallest item 
         // and swap it into place
         for (int place=0; place<data.length-1; place++){
@@ -113,7 +113,7 @@ public class Sorting{
 
     /* ===============INSERTION SORT================= */
     /** Sorts the  elements of an array of String using insertion sort */
-    public  void insertionSort(String[] data){
+    private void insertionSort(String[] data){
         // for each item, from 0, insert into place in the sorted region (0..i-1)
         for (int i=1; i<data.length; i++){
             String item = data[i];
@@ -132,14 +132,14 @@ public class Sorting{
      *  copy data array into a temporary array 
      *  call recursive mergeSort method     
      */
-    public  void mergeSort(String[] data) {
+    private void mergeSort(String[] data) {
         String[] other = new String[data.length];
         System.arraycopy(data, 0, other, 0, data.length);
         mergeSort(data, other, 0, data.length); //call to recursive merge sort method
     }
 
     /** Recursive mergeSort method */
-    public void mergeSort(String[] data, String[] temp, int low, int high) {
+    private void mergeSort(String[] data, String[] temp, int low, int high) {
         if(low < high-1) {
             int mid = ( low + high ) / 2;
             mergeSort(temp, data, low, mid);
@@ -153,35 +153,35 @@ public class Sorting{
      *  Merge from[low..mid-1] with from[mid..high-1] into to[low..high-1]
      *  Print data array after merge using printData
      */
-    public void merge(String[] from, String[] to, int low, int mid, int high) {
+    private void merge(String[] from, String[] to, int low, int mid, int high) {
         int index = low;      //where we will put the item into "to"
-        int indxLeft = low;   //index into the lower half of the "from" range
-        int indxRight = mid; // index into the upper half of the "from" range
-        while (indxLeft<mid && indxRight < high) {
-            if ( from[indxLeft].compareTo(from[indxRight]) <=0 )
-                to[index++] = from[indxLeft++];
+        int indexLeft = low;   //index into the lower half of the "from" range
+        int indexRight = mid; // index into the upper half of the "from" range
+        while (indexLeft<mid && indexRight < high) {
+            if ( from[indexLeft].compareTo(from[indexRight]) <=0 )
+                to[index++] = from[indexLeft++];
             else
-                to[index++] = from[indxRight++];
+                to[index++] = from[indexRight++];
         }
         // copy over the remainder. Note only one loop will do anything.
-        while (indxLeft<mid)
-            to[index++] = from[indxLeft++];
-        while (indxRight<high)
-            to[index++] = from[indxRight++];
+        while (indexLeft<mid)
+            to[index++] = from[indexLeft++];
+        while (indexRight<high)
+            to[index++] = from[indexRight++];
     }
 
     /*===============QUICK SORT=================*/
-    /** Sort data using QuickSort
-     *  Print time taken by Quick sort
-     *  Print number of times partition gets called
+    /* Sort data using QuickSort
+       Print time taken by Quick sort
+       Print number of times partition gets called
      */
 
     /** Quick sort recursive call */
-    public  void quickSort(String[ ] data) {
+    private void quickSort(String[] data) {
         quickSort(data, 0, data.length);
     }
 
-    public  void quickSort(String[ ] data, int low, int high) {
+    private void quickSort(String[] data, int low, int high) {
         if (high-low < 2)      // only one item to sort.
             return;
         else {     // split into two parts, mid = index of boundary
@@ -219,11 +219,11 @@ public class Sorting{
 
     /** Quick sort, second version:  simpler partition method
      *   faster or slower?  */
-    public  void quickSort2(String[ ] data) {
+    private void quickSort2(String[] data) {
         quickSort2(data, 0, data.length);
     }
 
-    public  void quickSort2(String[ ] data, int low, int high) {
+    private void quickSort2(String[] data, int low, int high) {
         if (low+1 >= high) // no items to sort.
             return;
         else {     // split into two parts, mid = index of pivot
@@ -233,7 +233,7 @@ public class Sorting{
         }
     }
 
-    public int partition2(String[] data, int low, int high){
+    private int partition2(String[] data, int low, int high){
         swap(data, low, (low+high)/2);    // choose pivot and put at position low
         String pivot = data[low];
         int mid = low;
@@ -252,7 +252,7 @@ public class Sorting{
 
     /** Tests whether an array is in sorted order
      */
-    public boolean testSorted(String[] data) {
+    private boolean testSorted(String[] data) {
         for (int i=1; i<data.length; i++){
             if (data[i].compareTo(data[i-1]) < 0)
                 return false;
@@ -267,7 +267,7 @@ public class Sorting{
     }
 
     /** Constructs an array of Strings by making random String values */
-    public String[] createArray(int size) {
+    private String[] createArray(int size) {
         Random randGenerator = new Random();
         String[] data = new String[size];
         for (int i=0; i<size; i++){
@@ -315,9 +315,7 @@ public class Sorting{
     /** Create a new copy of an array of data */
     public String[] copyArray(String[] data){
         String[] newData = new String[data.length];
-        for (int i=0; i<data.length; i++){
-            newData[i] = data[i];
-        }
+        System.arraycopy(data, 0, newData, 0, data.length);
         return newData;
     }
 
@@ -325,13 +323,11 @@ public class Sorting{
     public String[] copyArray(String[] data, int size){
         if (size> data.length) size = data.length;
         String[] newData = new String[size];
-        for (int i=0; i<size; i++){
-            newData[i] = data[i];
-        }
+        System.arraycopy(data, 0, newData, 0, size);
         return newData;
     }
 
-    public void reverseArray(String[] data){
+    private void reverseArray(String[] data){
         int bot = 0;
         int top = data.length-1;
         while (bot<top){
